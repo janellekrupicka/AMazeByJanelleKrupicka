@@ -1,4 +1,4 @@
-package com.example.amazebyjanellekrupicka;
+package edu.wm.cs.cs301.janellekrupicka;
 
 import android.content.Context;
 

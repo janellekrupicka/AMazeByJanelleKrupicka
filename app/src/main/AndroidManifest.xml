@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AMazeByJanelleKrupicka">
         <activity
-            android:name=".MainActivity"
+            android:name="edu.wm.cs.cs301.janellekrupicka.gui.AMazeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
