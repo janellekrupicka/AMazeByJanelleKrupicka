@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AMazeByJanelleKrupicka">
         <activity
+            android:name="edu.wm.cs.cs301.janellekrupicka.gui.GeneratingActivity"
+            android:parentActivityName="edu.wm.cs.cs301.janellekrupicka.gui.AMazeActivity"
+            android:exported="true" />
+        <activity
             android:name="edu.wm.cs.cs301.janellekrupicka.gui.AMazeActivity"
             android:exported="true">
             <intent-filter>
