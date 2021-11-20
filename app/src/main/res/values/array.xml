@@ -6,4 +6,15 @@
         <item>Wizard</item>
         <item>Wallfollower</item>
     </string-array>
+    <string-array name="maze_generation_alg">
+        <item>DFS</item>
+        <item>Prim</item>
+        <item>Boruvka</item>
+    </string-array>
+    <string-array name="robot_type">
+        <item>Premium</item>
+        <item>Mediocre</item>
+        <item>Soso</item>
+        <item>Shaky</item>
+    </string-array>
 </resources>

@@ -4,4 +4,13 @@
     <string name="short_cut">Shortcut</string>
     <string name="go2winning">Go2Winning</string>
     <string name="go2losing">Go2Losing</string>
+    <string name="congrats_winning">Congratulations! You won the Secret Garden Maze.</string>
+    <string name="welcome">Welcome to the Secret Garden Maze!</string>
+    <string name="losing_message">Sorry! You lost.</string>
+    <string name="rooms_toggle">Build maze with rooms</string>
+    <string name="gen_algorithm">Maze generation algorithm</string>
+    <string name="skill_level">maze difficulty</string>
+    <string name="revist">Revist</string>
+    <string name="robot_type">Robot type:</string>
+    <string name="driver">Driver type:</string>
 </resources>
