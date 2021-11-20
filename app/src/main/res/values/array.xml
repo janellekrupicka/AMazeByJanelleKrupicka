@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="play_type_options">
+        <item>None selected</item>
+        <item>Manual</item>
+        <item>Wizard</item>
+        <item>Wallfollower</item>
+    </string-array>
+</resources>

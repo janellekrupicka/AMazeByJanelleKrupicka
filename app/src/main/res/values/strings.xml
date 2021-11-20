@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">AMazeByJanelleKrupicka</string>
     <string name="explore_maze">Explore</string>
+    <string name="short_cut">Shortcut</string>
+    <string name="go2winning">Go2Winning</string>
+    <string name="go2losing">Go2Losing</string>
 </resources>

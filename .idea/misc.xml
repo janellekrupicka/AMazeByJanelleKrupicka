@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_amaze.xml" value="0.1334419679107869" />
-        <entry key="app/src/main/res/layout/activity_generating.xml" value="0.17421875" />
+        <entry key="app/src/main/res/layout/activity_generating.xml" value="0.2603412888090485" />
+        <entry key="app/src/main/res/layout/activity_play_animation.xml" value="0.1576883792263456" />
+        <entry key="app/src/main/res/layout/activity_play_manually.xml" value="0.10237196191671909" />
       </map>
     </option>
   </component>
