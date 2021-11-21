@@ -31,4 +31,5 @@
     <string name="sensor_backward">Sensor Backward</string>
     <string name="sensor_left">Sensor Left</string>
     <string name="sensor_right">Sensor Right</string>
+    <string name="return_message">Select the arrow in the upper left corner to restart the game.</string>
 </resources>
