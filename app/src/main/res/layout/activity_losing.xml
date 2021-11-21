@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/door_background"
     tools:context="edu.wm.cs.cs301.janellekrupicka.gui.LosingActivity">
 
     <TextView
@@ -17,5 +18,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

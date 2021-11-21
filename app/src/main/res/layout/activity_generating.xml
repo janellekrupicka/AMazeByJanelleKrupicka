@@ -12,12 +12,13 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="338dp"
         android:layout_height="278dp"
+        android:backgroundTint="@color/sage_green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.284"/>
+        app:layout_constraintVertical_bias="0.284" />
 
     <Spinner
         android:id="@+id/play_type"
@@ -25,32 +26,33 @@
         android:layout_height="57dp"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="176dp"
+        android:background="@color/sage_green"
         android:entries="@array/play_type_options"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/white"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Spinner
         android:id="@+id/spinner2"
         android:layout_width="138dp"
         android:layout_height="57dp"
         android:layout_marginBottom="104dp"
+        android:background="@color/sage_green"
         android:entries="@array/robot_type"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        android:background="@color/white"/>
+        app:layout_constraintStart_toEndOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="84dp"
         android:layout_height="36dp"
         android:layout_marginStart="80dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
         android:text="@string/robot_type"
         app:layout_constraintBaseline_toBaselineOf="@+id/spinner2"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/white"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView7"
@@ -58,12 +60,14 @@
         android:layout_height="32dp"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="13dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
         android:text="@string/driver"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintBaseline_toBaselineOf="@+id/play_type"
         app:layout_constraintEnd_toStartOf="@+id/play_type"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/white"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView9"
@@ -73,10 +77,12 @@
         android:layout_marginTop="74dp"
         android:layout_marginEnd="109dp"
         android:layout_marginBottom="36dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
         android:text="@string/loading_message"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/white"/>
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,7 +19,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/show_walls"
-        app:layout_constraintVertical_bias="0.529" />
+        app:layout_constraintVertical_bias="0.529"
+        android:background="@color/white"/>
 
     <Switch
         android:id="@+id/show_map"
@@ -29,8 +30,8 @@
         android:layout_marginTop="16dp"
         android:text="@string/show_map"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"/>
     <Switch
         android:id="@+id/show_solution"
         android:layout_width="155dp"
@@ -39,7 +40,8 @@
         android:layout_marginEnd="104dp"
         android:text="@string/show_solution"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"/>
 
     <Switch
         android:id="@+id/show_walls"
@@ -48,7 +50,8 @@
         android:layout_marginStart="16dp"
         android:text="@string/show_walls"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_map" />
+        app:layout_constraintTop_toBottomOf="@+id/show_map"
+        android:background="@color/white"/>
 
     <Button
         android:id="@+id/forward"
@@ -58,7 +61,8 @@
         app:layout_constraintBottom_toTopOf="@+id/left"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/white"/>
 
     <Button
         android:id="@+id/left"
@@ -69,7 +73,8 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/right"
         app:layout_constraintEnd_toStartOf="@+id/right"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/white"/>
 
     <Button
         android:id="@+id/right"
@@ -81,7 +86,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/left" />
+        app:layout_constraintStart_toEndOf="@+id/left"
+        android:background="@color/white"/>
 
     <Button
         android:id="@+id/increase_scale"
@@ -91,7 +97,8 @@
         android:layout_marginEnd="34dp"
         android:text="@string/map_scale_increse"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"/>
 
     <Button
         android:id="@+id/decrease_scale"
@@ -100,7 +107,8 @@
         android:layout_marginStart="4dp"
         android:text="@string/map_scale_decrease"
         app:layout_constraintStart_toEndOf="@+id/map_scale"
-        app:layout_constraintTop_toBottomOf="@+id/show_solution" />
+        app:layout_constraintTop_toBottomOf="@+id/show_solution"
+        android:background="@color/white"/>
 
     <TextView
         android:id="@+id/map_scale"
@@ -110,6 +118,7 @@
         android:layout_marginTop="12dp"
         android:text="@string/map_scale"
         app:layout_constraintStart_toEndOf="@+id/show_walls"
-        app:layout_constraintTop_toBottomOf="@+id/show_solution" />
+        app:layout_constraintTop_toBottomOf="@+id/show_solution"
+        android:background="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

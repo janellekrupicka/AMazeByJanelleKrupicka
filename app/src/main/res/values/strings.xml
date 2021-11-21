@@ -23,4 +23,12 @@
     <string name="map_scale_increse">+</string>
     <string name="map_scale_decrease">-</string>
     <string name="loading_message">Loading Secret Garden Maze...</string>
+    <string name="animation_speed">Animation speed</string>
+    <string name="energy_level">Energy level</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="sensor_forward">Sensor Forward</string>
+    <string name="sensor_backward">Sensor Backward</string>
+    <string name="sensor_left">Sensor Left</string>
+    <string name="sensor_right">Sensor Right</string>
 </resources>
