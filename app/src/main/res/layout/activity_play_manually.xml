@@ -4,16 +4,112 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/mossy_background"
     tools:context="edu.wm.cs.cs301.janellekrupicka.gui.PlayManuallyActivity">
 
     <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/short_cut"
+        android:layout_width="210dp"
+        android:layout_height="155dp"
+        android:layout_marginTop="66dp"
         android:onClick="shortCut"
         android:text="@string/short_cut"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/forward"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_walls"
+        app:layout_constraintVertical_bias="0.529" />
+
+    <Switch
+        android:id="@+id/show_map"
+        android:layout_width="133dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/show_map"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/show_solution"
+        android:layout_width="155dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="104dp"
+        android:text="@string/show_solution"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/show_walls"
+        android:layout_width="140dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/show_walls"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_map" />
+
+    <Button
+        android:id="@+id/forward"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:text="@string/forward_arrow"
+        app:layout_constraintBottom_toTopOf="@+id/left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/left"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="92dp"
+        android:text="@string/left_arrow"
+        app:layout_constraintBaseline_toBaselineOf="@+id/right"
+        app:layout_constraintEnd_toStartOf="@+id/right"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/right"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginBottom="48dp"
+        android:text="@string/right_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/left" />
+
+    <Button
+        android:id="@+id/increase_scale"
+        android:layout_width="60dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="34dp"
+        android:text="@string/map_scale_increse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/decrease_scale"
+        android:layout_width="60dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="4dp"
+        android:text="@string/map_scale_decrease"
+        app:layout_constraintStart_toEndOf="@+id/map_scale"
+        app:layout_constraintTop_toBottomOf="@+id/show_solution" />
+
+    <TextView
+        android:id="@+id/map_scale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/map_scale"
+        app:layout_constraintStart_toEndOf="@+id/show_walls"
+        app:layout_constraintTop_toBottomOf="@+id/show_solution" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

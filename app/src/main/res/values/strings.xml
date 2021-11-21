@@ -13,4 +13,14 @@
     <string name="revist">Revist</string>
     <string name="robot_type">Robot type:</string>
     <string name="driver">Driver type:</string>
+    <string name="forward_arrow">Forward</string>
+    <string name="left_arrow">Left</string>
+    <string name="right_arrow">Right</string>
+    <string name="show_map">Show map</string>
+    <string name="show_solution">Show solution</string>
+    <string name="show_walls">Show currently visible walls</string>
+    <string name="map_scale">Map scale</string>
+    <string name="map_scale_increse">+</string>
+    <string name="map_scale_decrease">-</string>
+    <string name="loading_message">Loading Secret Garden Maze...</string>
 </resources>
