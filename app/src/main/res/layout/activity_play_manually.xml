@@ -12,15 +12,16 @@
         android:layout_width="210dp"
         android:layout_height="155dp"
         android:layout_marginTop="66dp"
+        android:backgroundTint="@color/sage_green"
         android:onClick="shortCut"
         android:text="@string/short_cut"
-        app:layout_constraintBottom_toTopOf="@+id/forward"
+        android:textColor="@color/black"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_walls"
-        app:layout_constraintVertical_bias="0.529"
-        android:background="@color/white"/>
+        app:layout_constraintTop_toBottomOf="@+id/show_walls" />
 
     <Switch
         android:id="@+id/show_map"
@@ -28,87 +29,62 @@
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
         android:text="@string/show_map"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/white"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Switch
         android:id="@+id/show_solution"
         android:layout_width="155dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="104dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
         android:text="@string/show_solution"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/white"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
         android:id="@+id/show_walls"
         android:layout_width="140dp"
         android:layout_height="55dp"
         android:layout_marginStart="16dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
         android:text="@string/show_walls"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_map"
-        android:background="@color/white"/>
-
-    <Button
-        android:id="@+id/forward"
-        android:layout_width="110dp"
-        android:layout_height="60dp"
-        android:text="@string/forward_arrow"
-        app:layout_constraintBottom_toTopOf="@+id/left"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/white"/>
-
-    <Button
-        android:id="@+id/left"
-        android:layout_width="110dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="92dp"
-        android:text="@string/left_arrow"
-        app:layout_constraintBaseline_toBaselineOf="@+id/right"
-        app:layout_constraintEnd_toStartOf="@+id/right"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/white"/>
-
-    <Button
-        android:id="@+id/right"
-        android:layout_width="110dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="92dp"
-        android:layout_marginBottom="48dp"
-        android:text="@string/right_arrow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/left"
-        android:background="@color/white"/>
+        app:layout_constraintTop_toBottomOf="@+id/show_map" />
 
     <Button
         android:id="@+id/increase_scale"
         android:layout_width="60dp"
         android:layout_height="48dp"
         android:layout_marginTop="64dp"
-        android:layout_marginEnd="34dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/sage_green"
         android:text="@string/map_scale_increse"
+        android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/white"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/decrease_scale"
         android:layout_width="60dp"
         android:layout_height="48dp"
         android:layout_marginStart="4dp"
+        android:backgroundTint="@color/sage_green"
         android:text="@string/map_scale_decrease"
+        android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/map_scale"
-        app:layout_constraintTop_toBottomOf="@+id/show_solution"
-        android:background="@color/white"/>
+        app:layout_constraintTop_toBottomOf="@+id/show_solution" />
 
     <TextView
         android:id="@+id/map_scale"
@@ -116,9 +92,53 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
         android:text="@string/map_scale"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/show_walls"
-        app:layout_constraintTop_toBottomOf="@+id/show_solution"
-        android:background="@color/white"/>
+        app:layout_constraintTop_toBottomOf="@+id/show_solution" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="123dp"
+        android:layout_height="108dp"
+        android:layout_marginBottom="90dp"
+        android:contentDescription="@string/forward_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageButton4"
+        app:layout_constraintTop_toBottomOf="@+id/short_cut"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:srcCompat="@drawable/forward_arrow" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="117dp"
+        android:layout_height="137dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@string/left_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:srcCompat="@drawable/left_arrow" />
+
+    <ImageButton
+        android:id="@+id/imageButton5"
+        android:layout_width="118dp"
+        android:layout_height="141dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@string/right_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageButton3"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:srcCompat="@drawable/right_arrow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

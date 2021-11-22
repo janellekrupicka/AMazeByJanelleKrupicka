@@ -46,7 +46,7 @@
         android:layout_marginBottom="292dp"
         android:backgroundTint="@color/sage_green"
         android:progressBackgroundTint="@color/sage_green"
-        android:progressTint="@color/black"
+        android:progressTint="@color/dark_green"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
