@@ -8,7 +8,7 @@
     tools:context="edu.wm.cs.cs301.janellekrupicka.gui.AMazeActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/explore"
         android:layout_width="142dp"
         android:layout_height="69dp"
         android:backgroundTint="@color/sage_green"
@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.346" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/welcome_message"
         android:layout_width="207dp"
         android:layout_height="61dp"
         android:layout_marginStart="56dp"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/skill_level"
         android:layout_width="217dp"
         android:layout_height="64dp"
         android:layout_marginBottom="292dp"
@@ -48,13 +48,14 @@
         android:progressBackgroundTint="@color/sage_green"
         android:progressTint="@color/dark_green"
         android:visibility="visible"
+        android:max="9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/rooms"
         android:layout_width="228dp"
         android:layout_height="88dp"
         android:layout_marginStart="23dp"
@@ -66,14 +67,15 @@
         android:fontFamily="cursive"
         android:text="@string/rooms_toggle"
         android:textColor="@color/black"
+        android:checked="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        app:layout_constraintTop_toBottomOf="@+id/skill_level"
         app:layout_constraintVertical_bias="0.495" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/maze_gen_alg"
         android:layout_width="133dp"
         android:layout_height="54dp"
         android:layout_marginStart="15dp"
@@ -86,12 +88,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/switch1"
+        app:layout_constraintStart_toEndOf="@+id/set_gen_alg"
+        app:layout_constraintTop_toBottomOf="@+id/rooms"
         app:layout_constraintVertical_bias="0.152" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/set_gen_alg"
         android:layout_width="102dp"
         android:layout_height="53dp"
         android:layout_marginStart="80dp"
@@ -104,11 +106,11 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1"
+        app:layout_constraintTop_toBottomOf="@+id/rooms"
         app:layout_constraintVertical_bias="0.28" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/set_skill_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
@@ -117,27 +119,28 @@
         android:text="@string/skill_level"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/switch1"
+        app:layout_constraintBottom_toTopOf="@+id/rooms"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        app:layout_constraintTop_toBottomOf="@+id/skill_level"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/revisit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="38dp"
         android:layout_marginBottom="13dp"
         android:backgroundTint="@color/sage_green"
         android:fontFamily="cursive"
+        android:onClick="revisitMaze"
         android:text="@string/revist"
         android:textColor="@color/black"
         app:iconTint="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/explore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/welcome_message" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,10 +14,11 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="156dp"
         android:backgroundTint="@color/sage_green"
+        android:onClick="increaseMapScale"
         android:text="@string/map_scale_increse"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/go2winning"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/decrease_scale2"
@@ -31,13 +32,13 @@
         android:background="@color/sage_green"
         android:fontFamily="cursive"
         android:text="@string/show_map"
-        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintEnd_toStartOf="@+id/map_scale2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/go2losing"
         android:layout_width="151dp"
         android:layout_height="72dp"
         android:layout_marginTop="5dp"
@@ -50,11 +51,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@+id/go2winning"
         app:layout_constraintVertical_bias="0.038" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/go2winning"
         android:layout_width="159dp"
         android:layout_height="58dp"
         android:layout_marginTop="156dp"
@@ -74,17 +75,18 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="156dp"
         android:backgroundTint="@color/sage_green"
+        android:onClick="decreaseMapScale"
         android:text="@string/map_scale_decrease"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/go2winning"
         app:layout_constraintEnd_toStartOf="@+id/increase_scale2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintStart_toEndOf="@+id/map_scale2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/map_scale2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -92,14 +94,14 @@
         android:background="@color/sage_green"
         android:fontFamily="cursive"
         android:text="@string/map_scale"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/go2winning"
         app:layout_constraintEnd_toStartOf="@+id/decrease_scale2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/show_map2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-        android:id="@+id/progressBar2"
+        android:id="@+id/energyBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="176dp"
         android:layout_height="49dp"
@@ -108,54 +110,58 @@
         android:layout_marginEnd="132dp"
         android:background="@color/dark_green"
         android:backgroundTint="@color/sage_green"
-        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        android:max="3500"
+        android:progress="3500"
+        app:layout_constraintBottom_toTopOf="@+id/energyBarText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/playButton" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/playButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="79dp"
         android:layout_marginTop="155dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/play"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar2"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+        android:onClick="pressPlay"
+        app:layout_constraintBottom_toTopOf="@+id/energyBar"
+        app:layout_constraintEnd_toStartOf="@+id/pauseButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@+id/go2winning"
         app:srcCompat="@android:drawable/ic_media_play" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/pauseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="67dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/pause"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar2"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar2"
+        android:onClick="pressPause"
+        app:layout_constraintBottom_toTopOf="@+id/energyBar"
+        app:layout_constraintEnd_toStartOf="@+id/animationSpeed"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/playButton"
+        app:layout_constraintTop_toBottomOf="@+id/go2losing"
         app:srcCompat="@android:drawable/ic_media_pause" />
 
     <SeekBar
-        android:id="@+id/seekBar2"
+        android:id="@+id/animationSpeed"
         android:layout_width="168dp"
         android:layout_height="28dp"
         android:layout_marginStart="11dp"
         android:layout_marginTop="78dp"
         android:layout_marginEnd="70dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView10"
+        app:layout_constraintBottom_toTopOf="@+id/animationSpeedText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton2"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintStart_toEndOf="@+id/pauseButton"
+        app:layout_constraintTop_toBottomOf="@+id/go2losing" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/animationSpeedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="74dp"
@@ -166,13 +172,13 @@
         android:fontFamily="cursive"
         android:text="@string/animation_speed"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar2"
+        app:layout_constraintBottom_toTopOf="@+id/energyBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton2"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+        app:layout_constraintStart_toEndOf="@+id/pauseButton"
+        app:layout_constraintTop_toBottomOf="@+id/animationSpeed" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/energyBarText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="191dp"
@@ -187,10 +193,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
+        app:layout_constraintTop_toBottomOf="@+id/energyBar" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/sensor_backward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="166dp"
@@ -199,13 +205,13 @@
         android:layout_marginBottom="73dp"
         android:background="@color/green"
         android:text="@string/sensor_backward"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/go2winning"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintTop_toBottomOf="@+id/sensor_left" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/sensor_forward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="171dp"
@@ -214,13 +220,13 @@
         android:layout_marginBottom="8dp"
         android:background="@color/green"
         android:text="@string/sensor_forward"
-        app:layout_constraintBottom_toTopOf="@+id/textView13"
+        app:layout_constraintBottom_toTopOf="@+id/sensor_left"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/decrease_scale2" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/sensor_left"
         android:layout_width="78dp"
         android:layout_height="19dp"
         android:layout_marginStart="124dp"
@@ -228,13 +234,13 @@
         android:layout_marginBottom="8dp"
         android:background="@color/green"
         android:text="@string/sensor_left"
-        app:layout_constraintBottom_toTopOf="@+id/textView12"
-        app:layout_constraintEnd_toStartOf="@+id/textView14"
+        app:layout_constraintBottom_toTopOf="@+id/sensor_backward"
+        app:layout_constraintEnd_toStartOf="@+id/sensor_right"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/sensor_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
@@ -243,9 +249,9 @@
         android:layout_marginBottom="9dp"
         android:background="@color/green"
         android:text="@string/sensor_right"
-        app:layout_constraintBottom_toTopOf="@+id/textView12"
+        app:layout_constraintBottom_toTopOf="@+id/sensor_backward"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintStart_toEndOf="@+id/sensor_left"
+        app:layout_constraintTop_toBottomOf="@+id/sensor_forward" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
