@@ -27,6 +27,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
     }
     public void shortCut(View view) {
         Intent intent = new Intent(this, WinningActivity.class);
+        intent.putExtra("Path length", 0); // will get from controller
+        intent.putExtra("Shortest path length", 0); // will get from controller
         startActivity(intent);
     }
     public void increaseMapScale(View view) {

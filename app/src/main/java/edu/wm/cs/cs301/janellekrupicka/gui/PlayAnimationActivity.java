@@ -30,10 +30,18 @@ public class PlayAnimationActivity extends AppCompatActivity {
     }
     public void go2Winning(View view) {
         Intent intent = new Intent(this, WinningActivity.class);
+        //intent.putExtra("Robot", true);
+        intent.putExtra("Path length", 0); // will get from controller
+        intent.putExtra("Shortest path length", 0); // will get from controller
+        intent.putExtra("Energy consumption", 0); // will get from controller
         startActivity(intent);
     }
     public void go2Losing(View view) {
         Intent intent = new Intent(this, LosingActivity.class);
+        intent.putExtra("Path length", 0); // will get from controller
+        intent.putExtra("Shortest path length", 0); // will get from controller
+        intent.putExtra("Energy consumption", 0); // will get from controller
+        intent.putExtra("Reason for stop", true);// true if crashed/broke, false if ran out of energy
         startActivity(intent);
     }
     public void increaseMapScale(View view) {

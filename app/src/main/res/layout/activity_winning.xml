@@ -8,23 +8,65 @@
     tools:context="edu.wm.cs.cs301.janellekrupicka.gui.WinningActivity">
 
     <TextView
+        android:id="@+id/robotEnergyConsumption2"
+        android:layout_width="104dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="173dp"
+        android:layout_marginEnd="180dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
+        android:text="@string/robot_end_energy"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/return_message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shortestPathLength2" />
+
+    <TextView
+        android:id="@+id/shortestPathLength2"
+        android:layout_width="108dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="174dp"
+        android:layout_marginEnd="175dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
+        android:text="@string/shortest_path_length"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/robotEnergyConsumption2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pathLength2" />
+
+    <TextView
+        android:id="@+id/pathLength2"
+        android:layout_width="109dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="173dp"
+        android:layout_marginEnd="175dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
+        android:text="@string/path_length"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/shortestPathLength2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/winning_message" />
+
+    <TextView
         android:id="@+id/winning_message"
-        android:layout_width="404dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="396dp"
+        android:layout_width="299dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="79dp"
         android:background="@color/sage_green"
         android:fontFamily="cursive"
         android:text="@string/congrats_winning"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/return_message"
+        app:layout_constraintBottom_toTopOf="@+id/pathLength2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/return_message"
@@ -40,5 +82,7 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/robotEnergyConsumption2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

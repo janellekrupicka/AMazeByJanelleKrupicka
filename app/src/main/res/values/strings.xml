@@ -32,4 +32,8 @@
     <string name="sensor_left">Sensor Left</string>
     <string name="sensor_right">Sensor Right</string>
     <string name="return_message">Select the arrow in the upper left corner to restart the game.</string>
+    <string name="path_length">Path length taken: </string>
+    <string name="shortest_path_length">Shortest possible path length: </string>
+    <string name="robot_end_energy">Amount of energy consumed: </string>
+    <string name="reason_for_robot_stopping"> </string>
 </resources>

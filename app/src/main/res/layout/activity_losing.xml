@@ -8,7 +8,7 @@
     tools:context="edu.wm.cs.cs301.janellekrupicka.gui.LosingActivity">
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/returnMessage"
         android:layout_width="301dp"
         android:layout_height="52dp"
         android:layout_marginStart="82dp"
@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/winning_message" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/losingMessage"
         android:layout_width="142dp"
         android:layout_height="46dp"
         android:layout_marginStart="135dp"
@@ -37,9 +37,73 @@
         android:fontFamily="cursive"
         android:text="@string/losing_message"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/textView19"
+        app:layout_constraintBottom_toTopOf="@+id/returnMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.309" />
+
+    <TextView
+        android:id="@+id/robotEnergyConsumption"
+        android:layout_width="104dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginEnd="173dp"
+        android:layout_marginBottom="140dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
+        android:text="@string/robot_end_energy"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/returnMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/shortestPathLength" />
+
+    <TextView
+        android:id="@+id/robotStopReason"
+        android:layout_width="162dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="135dp"
+        android:layout_marginEnd="132dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
+        android:text="@string/reason_for_robot_stopping"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/pathLength"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/losingMessage" />
+
+    <TextView
+        android:id="@+id/pathLength"
+        android:layout_width="109dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginEnd="168dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
+        android:text="@string/path_length"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/shortestPathLength"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/robotStopReason" />
+
+    <TextView
+        android:id="@+id/shortestPathLength"
+        android:layout_width="108dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginEnd="169dp"
+        android:background="@color/sage_green"
+        android:fontFamily="cursive"
+        android:text="@string/shortest_path_length"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/robotEnergyConsumption"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pathLength" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
