@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.amazebyjanellekrupicka.R;
 
 public class PlayManuallyActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -20,11 +20,15 @@ import android.widget.Toast;
 import com.example.amazebyjanellekrupicka.R;
 
 public class PlayAnimationActivity extends AppCompatActivity {
-
+    private String driverType;
+    private String robotType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_animation);
+        Intent intent = getIntent();
+        driverType=intent.getStringExtra("Driver type");
+        robotType=intent.getStringExtra("Robot type");
         getAnimationSpeed();
         showMap();
     }

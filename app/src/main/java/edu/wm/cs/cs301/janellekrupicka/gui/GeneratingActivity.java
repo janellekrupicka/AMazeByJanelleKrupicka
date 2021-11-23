@@ -19,7 +19,11 @@ import android.widget.Toast;
 import com.example.amazebyjanellekrupicka.R;
 
 public class GeneratingActivity extends AppCompatActivity {
-
+    private int skillLevel;
+    private boolean hasRooms;
+    private String mazeGenAlgorithm;
+    private String driverType;
+    private String robotType;
     // code for background thread from
     // http://www.java2s.com/Code/Android/UI/UsingThreadandProgressbar.htm
     private static int progress;
@@ -31,8 +35,11 @@ public class GeneratingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generating);
-        getRobotType();
-
+        Intent intent = getIntent();
+        skillLevel=intent.getIntExtra("Skill level", 0);
+        hasRooms=intent.getBooleanExtra("Rooms", true);
+        mazeGenAlgorithm=intent.getStringExtra("Maze gen algorithm");
+        robotType = getRobotType();
         progress = 0;
         progressBar = (ProgressBar) findViewById(R.id.loadingBar);
         progressBar.setMax(200);
@@ -56,21 +63,27 @@ public class GeneratingActivity extends AppCompatActivity {
                             playTypeSpinnerSelection();
                         }
                         else if (selectedPlay.equals("Manual")) {
+                            driverType = "Manual";
                             Toast.makeText(getBaseContext(), "Playing manually.", Toast.LENGTH_SHORT).show();
                             Log.v("GeneratingActivity", "Playing manually.");
                             Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayManuallyActivity.class);
+                            setExtrasForIntent(intent);
                             startActivity(intent);
                         }
                         else if (selectedPlay.equals("Wizard")) {
+                            driverType = "Wizard";
                             Toast.makeText(getBaseContext(), "Playing with Wizard.", Toast.LENGTH_SHORT).show();
                             Log.v("GeneratingActivity", "Playing with Wizard.");
                             Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
+                            setExtrasForIntent(intent);
                             startActivity(intent);
                         }
                         else if (selectedPlay.equals("Wallfollower")) {
+                            driverType = "Wallfollower";
                             Toast.makeText(getBaseContext(), "Playing with Wallfollower.", Toast.LENGTH_SHORT).show();
                             Log.v("GeneratingActivity", "Playing with Wallfollower.");
                             Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
+                            setExtrasForIntent(intent);
                             startActivity(intent);
                         }
                     }
@@ -102,21 +115,27 @@ public class GeneratingActivity extends AppCompatActivity {
                 //    Toast.makeText(getBaseContext(), "Select driver to continue.", LENGTH_LONG).show();
               //  }
                 if (l == 1) {
+                    driverType = "Manual";
                     Toast.makeText(getBaseContext(), "Playing manually.", Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Playing manually.");
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayManuallyActivity.class);
+                    setExtrasForIntent(intent);
                     startActivity(intent);
                 }
                 if (l == 2) {
+                    driverType = "Wizard";
                     Toast.makeText(getBaseContext(), "Playing with Wizard.", Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Playing with Wizard.");
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
+                    setExtrasForIntent(intent);
                     startActivity(intent);
                 }
                 if (l == 3) {
+                    driverType = "Wallfollower";
                     Toast.makeText(getBaseContext(), "Playing with Wallfollower.", Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Playing with Wallfollower.");
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
+                    setExtrasForIntent(intent);
                     startActivity(intent);
                 }
             }
@@ -137,25 +156,32 @@ public class GeneratingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (l == 0) {
+                    robotType = "Premium";
                     Toast.makeText(getBaseContext(), "Premium robot selected.", Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Premium robot selected.");
                 }
                 if (l == 1) {
+                    robotType = "Mediocre";
                     Toast.makeText(getBaseContext(), "Mediocre robot selected.", Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Mediocre robot selected.");
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayManuallyActivity.class);
+                    setExtrasForIntent(intent);
                     startActivity(intent);
                 }
                 if (l == 2) {
+                    robotType = "Soso";
                     Toast.makeText(getBaseContext(), "Soso robot selected.",Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Soso robot selected.");
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
+                    setExtrasForIntent(intent);
                     startActivity(intent);
                 }
                 if (l == 3) {
+                    robotType = "Shaky";
                     Toast.makeText(getBaseContext(), "Shaky robot selected.", Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Shaky robot selected.");
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
+                    setExtrasForIntent(intent);
                     startActivity(intent);
                 }
             }
@@ -165,5 +191,10 @@ public class GeneratingActivity extends AppCompatActivity {
         });
         return robot_type.getSelectedItem().toString();
     }
+    private void setExtrasForIntent(Intent intent) {
+        intent.putExtra("Driver type", driverType);
+        intent.putExtra("Robot type", robotType);
+    }
+
 }
 

@@ -20,25 +20,33 @@ import android.widget.Toast;
 import com.example.amazebyjanellekrupicka.R;
 
 public class AMazeActivity extends AppCompatActivity {
-
+    private int skillLevel;
+    private boolean hasRooms;
+    private String mazeGenAlgorithm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_amaze);
-        getMazeGenAlg();
-        getSkillLevel();
-        getRooms();
+        mazeGenAlgorithm=getMazeGenAlg();
+        skillLevel=getSkillLevel();
+        hasRooms=getRooms();
     }
     public void exploreMaze(View view) {
         Toast.makeText(getBaseContext(), "Exploring maze.", LENGTH_LONG).show();
         Log.v("AMazeActivity", "Explore button selected. Exploring maze.");
         Intent intent = new Intent(this, GeneratingActivity.class);
+        intent.putExtra("Skill level",skillLevel);
+        intent.putExtra("Rooms", hasRooms);
+        intent.putExtra("Maze gen algorithm",mazeGenAlgorithm);
         startActivity(intent);
     }
     public void revisitMaze(View view) {
         Toast.makeText(getBaseContext(), "Revisiting maze.", LENGTH_LONG).show();
         Log.v("AMazeActivity", "Revisit button selected. Revisiting maze.");
         Intent intent = new Intent(this, GeneratingActivity.class);
+        intent.putExtra("Skill level",skillLevel);
+        intent.putExtra("Rooms", hasRooms);
+        intent.putExtra("Maze gen algorithm",mazeGenAlgorithm);
         startActivity(intent);
     }
     private int getSkillLevel() {
