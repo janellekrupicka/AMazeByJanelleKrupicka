@@ -18,10 +18,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amazebyjanellekrupicka.R;
-
+/**
+ * The UI to play the game with the driver and robot.
+ * Shows the robot moving through the maze.
+ * Shows which of the robot’s sensors are currently operational.
+ * Includes an option to toggle on the map and solution rendering along with an option
+ * to adjust the map scale. Has a pause/play button that lets the user pause the robot as it
+ * moves through the maze. Also, includes a bar where the user can adjust the speed the robot
+ * travels through the maze. It also shows the energy level of the robot going through the maze.
+ * Includes a back button that returns to the title screen.
+ *
+ * Collaborators:
+ * Controller.java
+ * Robot.java
+ * WinningActivity.java, LosingActivity.java
+ */
 public class PlayAnimationActivity extends AppCompatActivity {
     private String driverType;
     private String robotType;
+    /**
+     * Sets up layout for activity.
+     * Gets extras from intent that sent to this activity.
+     * Starts onSeekBarChangeListener for animation speed SeekBar.
+     * Starts onCheckedListener for map toggle switch.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +53,28 @@ public class PlayAnimationActivity extends AppCompatActivity {
         getAnimationSpeed();
         showMap();
     }
+    /**
+     * Method called when Go2Winning is selected.
+     * Creates intent to to go to WinningActivity.
+     * Sends with extras about path length, shortest path length,
+     * and energy consumption.
+     * @param view
+     */
     public void go2Winning(View view) {
         Intent intent = new Intent(this, WinningActivity.class);
-        //intent.putExtra("Robot", true);
+        // will need for be changed so the values are no longer hard coded
         intent.putExtra("Path length", 0); // will get from controller
         intent.putExtra("Shortest path length", 0); // will get from controller
         intent.putExtra("Energy consumption", 0); // will get from controller
         startActivity(intent);
     }
+    /**
+     * Method called when Go2Losing is selected.
+     * Creates intent to to go to LosingActivity.
+     * Sends with extras about path length, shortest path length,
+     * and energy consumption.
+     * @param view
+     */
     public void go2Losing(View view) {
         Intent intent = new Intent(this, LosingActivity.class);
         intent.putExtra("Path length", 0); // will get from controller
@@ -48,22 +83,53 @@ public class PlayAnimationActivity extends AppCompatActivity {
         intent.putExtra("Reason for stop", true);// true if crashed/broke, false if ran out of energy
         startActivity(intent);
     }
+    /**
+     * Method called when the plus button is selected to increase map scale.
+     * Puts out toast message and log.v output when selected.
+     * Will collaborate to actually adjust map scale.
+     * @param view
+     */
     public void increaseMapScale(View view) {
         Toast.makeText(getBaseContext(), "Map scale increased", Toast.LENGTH_SHORT).show();
         Log.v("PlayAnimationActivity", "Map scale increased");
     }
+    /**
+     * Method called when the minus button is selected to decrease map scale.
+     * Puts out toast message and log.v output when selected.
+     * Will collaborate to actually adjust map scale.
+     * @param view
+     */
     public void decreaseMapScale(View view) {
         Toast.makeText(getBaseContext(), "Map scale decreased", Toast.LENGTH_SHORT).show();
         Log.v("PlayAnimationActivity", "Map scale decreased");
     }
+    /**
+     * Method called when the play button is selected to play animation.
+     * Puts out toast message and log.v output when selected.
+     * Will collaborate to actually play animation.
+     * @param view
+     */
     public void pressPlay(View view) {
         Toast.makeText(getBaseContext(), "Playing animation", Toast.LENGTH_SHORT).show();
         Log.v("PlayAnimationActivity", "Playing animation");
     }
+    /**
+     * Method called when the pause button is selected to pause animation.
+     * Puts out toast message and log.v output when selected.
+     * Will collaborate to actually pause animation.
+     * @param view
+     */
     public void pressPause(View view) {
         Toast.makeText(getBaseContext(), "Animation paused", Toast.LENGTH_SHORT).show();
         Log.v("PlayAnimationActivity", "Animation paused");
     }
+    /**
+     * Method to change sensor indicator color based on whether
+     * sensor is operational. (Not yet used, will collaborate with robot).
+     * @param direction: sensor direction
+     * can be forward, backward, left, or right
+     * @param isOperational
+     */
     private void setSensorOperational(String direction, boolean isOperational) {
         int color = ContextCompat.getColor(this, R.color.green);
         if(!isOperational) {
@@ -86,6 +152,11 @@ public class PlayAnimationActivity extends AppCompatActivity {
             sensor.setBackgroundColor(color);
         }
     }
+    /**
+     * showMap toggle button onCheckedChangeListener.
+     * Will put a toast message and log.v output when
+     * button is turned on or off to show map.
+     */
     private void showMap() {
         Switch showMap=(Switch) findViewById(R.id.show_map2);
         // code for onCheckedChangeListener from
@@ -103,6 +174,12 @@ public class PlayAnimationActivity extends AppCompatActivity {
             }
         });
     }
+    /**
+     * To start onSeekBarChangeListener for animation speed seek bar.
+     * When seek bar is adjusted for animation speed, shows
+     * toast and log.v output with the animation speed it's set to.
+     * @return
+     */
     private int getAnimationSpeed() {
         SeekBar animationSpeed=(SeekBar) findViewById(R.id.animationSpeed);
         animationSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -120,6 +197,11 @@ public class PlayAnimationActivity extends AppCompatActivity {
         });
         return animationSpeed.getProgress();
     }
+    /**
+     * Will be used to set the energy level for the progress bar.
+     * That shows the robot's energy level. Will collaborate with robot/controller.
+     * @param energy
+     */
     private void setEnergyLevel(int energy) {
         ProgressBar energyLevel=(ProgressBar) findViewById(R.id.energyBar);
         energyLevel.setProgress(energy);
