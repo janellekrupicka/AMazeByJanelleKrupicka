@@ -7,7 +7,7 @@
     android:background="@drawable/mossy_background"
     tools:context="edu.wm.cs.cs301.janellekrupicka.gui.PlayManuallyActivity">
 
-    <Button
+    <!-- <Button
         android:id="@+id/short_cut"
         android:layout_width="210dp"
         android:layout_height="155dp"
@@ -20,6 +20,21 @@
         app:layout_constraintBottom_toTopOf="@+id/forwardButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_walls" /> -->
+
+    <view
+        android:id="@+id/maze_panel"
+        class="edu.wm.cs.cs301.janellekrupicka.gui.MazePanel"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="159dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginBottom="144dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/forwardButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/show_walls" />
 
@@ -65,14 +80,18 @@
         android:id="@+id/increase_scale"
         android:layout_width="60dp"
         android:layout_height="48dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="64dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="438dp"
         android:backgroundTint="@color/sage_green"
         android:onClick="increaseMapScale"
         android:text="@string/map_scale_increse"
         android:textColor="@color/black"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/rightButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/decrease_scale"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -103,8 +122,9 @@
 
     <ImageButton
         android:id="@+id/forwardButton"
-        android:layout_width="123dp"
-        android:layout_height="108dp"
+        android:layout_width="125dp"
+        android:layout_height="102dp"
+        android:layout_marginTop="497dp"
         android:layout_marginBottom="90dp"
         android:contentDescription="@string/forward_arrow"
         android:foreground="?android:attr/selectableItemBackground"
@@ -113,7 +133,8 @@
         app:layout_constraintEnd_toStartOf="@+id/rightButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/leftButton"
-        app:layout_constraintTop_toBottomOf="@+id/short_cut"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.919"
         app:srcCompat="@drawable/forward_arrow" />
 
     <ImageButton
