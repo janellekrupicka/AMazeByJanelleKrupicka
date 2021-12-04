@@ -298,8 +298,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
 
     @Override
     public void deliver(Maze mazeConfig) {
-        MazeSingleton mazeHolder = new MazeSingleton();
-        mazeHolder.setMazeInstance(mazeConfig);
+        MazeSingleton.getInstance().setMaze(mazeConfig);
     }
     @Override
     public void updateProgress(int percentage) {

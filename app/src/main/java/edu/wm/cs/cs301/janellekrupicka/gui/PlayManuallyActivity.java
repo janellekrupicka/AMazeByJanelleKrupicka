@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.amazebyjanellekrupicka.R;
 
+import edu.wm.cs.cs301.janellekrupicka.generation.Maze;
+
 /**
  * The UI to play the maze manually.
  * Shows the maze and the user can move through the maze using the up, down, left, and right buttons.
@@ -32,6 +34,7 @@ import com.example.amazebyjanellekrupicka.R;
  */
 public class PlayManuallyActivity extends AppCompatActivity {
     private int pathLength;
+    private Maze maze;
     /**
      * Sets up layout for activity.
      * Starts onCheckedChangeListener for show map toggle,
@@ -46,6 +49,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
         showSolution();
         showVisibleWalls();
         pathLength = 0;
+        maze=MazeSingleton.getInstance().getMaze();
         MazePanel mazePanel = findViewById(R.id.maze_panel);
         mazePanel.commit();
     }

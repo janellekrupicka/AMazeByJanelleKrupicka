@@ -18,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amazebyjanellekrupicka.R;
+
+import edu.wm.cs.cs301.janellekrupicka.generation.Maze;
+
 /**
  * The UI to play the game with the driver and robot.
  * Shows the robot moving through the maze.
@@ -36,6 +39,7 @@ import com.example.amazebyjanellekrupicka.R;
 public class PlayAnimationActivity extends AppCompatActivity {
     private String driverType;
     private String robotType;
+    private Maze maze;
     /**
      * Sets up layout for activity.
      * Gets extras from intent that sent to this activity.
@@ -50,6 +54,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
         Intent intent = getIntent();
         driverType=intent.getStringExtra("Driver type");
         robotType=intent.getStringExtra("Robot type");
+        maze=MazeSingleton.getInstance().getMaze();
         getAnimationSpeed();
         showMap();
     }
