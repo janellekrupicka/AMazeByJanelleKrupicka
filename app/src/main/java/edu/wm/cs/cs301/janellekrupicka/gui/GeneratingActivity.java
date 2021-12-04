@@ -18,6 +18,11 @@ import android.widget.Toast;
 
 import com.example.amazebyjanellekrupicka.R;
 
+import edu.wm.cs.cs301.janellekrupicka.generation.Factory;
+import edu.wm.cs.cs301.janellekrupicka.generation.Maze;
+import edu.wm.cs.cs301.janellekrupicka.generation.MazeFactory;
+import edu.wm.cs.cs301.janellekrupicka.generation.Order;
+
 /**
  * Maze generating state for the UI.
  * Sets the driver, the robot, and can go back to AMazeActivity.java.
@@ -34,35 +39,15 @@ import com.example.amazebyjanellekrupicka.R;
  * PlayManuallyActivity.java to go to next if Manual is selected as driver.
  * PlayAnimationActivity.java to go to next if Wizard or Wallfollower is selected as driver.
  */
-public class GeneratingActivity extends AppCompatActivity {
-    /**
-     * Maze skill level. AKA maze size, maze difficulty.
-     */
+public class GeneratingActivity extends AppCompatActivity implements Order {
     private int skillLevel;
-    /**
-     * Whether the maze will be set with maze.
-     * True if rooms, false if no rooms.
-     */
-    private boolean hasRooms;
-    /**
-     * Maze generation algorithm.
-     * DFS, Prim, or Boruvka
-     */
-    private String mazeGenAlgorithm;
-    /**
-     * Play type.
-     * Can be Manual, Wizard, or Wallfollower.
-     */
+    private boolean perfect;
+    private Builder mazeGenAlgorithm;
     private String driverType;
-    /**
-     * Robot type.
-     * Premium, Mediocre, Soso, Shaky
-     * Premium has 4 reliable sensors,
-     * mediocre has reliable front & back sensors, unreliable left and right sensors,
-     * Soso has reliable left & right sensors, unreliable front and back sensors,
-     * Shaky has 4 unreliable sensors.
-     */
     private String robotType;
+    private int seed;
+    private int percentdone;
+    private Factory factory;
     /**
      * Loading maze progress.
      */
@@ -79,6 +64,7 @@ public class GeneratingActivity extends AppCompatActivity {
      * Handler for thread.
      */
     private Handler handler = new Handler();
+
     /**
      * Sets up layout for GeneratingActivity.
      * Gets extras from intent that sends to GeneratingActivity.
@@ -102,23 +88,26 @@ public class GeneratingActivity extends AppCompatActivity {
         // get extras from AMazeActivity
         Intent intent = getIntent();
         skillLevel=intent.getIntExtra("Skill level", 0);
-        hasRooms=intent.getBooleanExtra("Rooms", true);
-        mazeGenAlgorithm=intent.getStringExtra("Maze gen algorithm");
+        perfect=!intent.getBooleanExtra("Rooms", true);
+        builderFromString(intent.getStringExtra("Maze gen algorithm"));
+      //  mazeGenAlgorithm=intent.getStringExtra("Maze gen algorithm");
         // set default robotType and start onItemSelectedListener
         robotType = getRobotType();
         // code for background thread from
         // http://www.java2s.com/Code/Android/UI/UsingThreadandProgressbar.htm
         progress = 0;
         progressBar = (ProgressBar) findViewById(R.id.loadingBar);
-        progressBar.setMax(200);
+        progressBar.setMax(100);
 
         new Thread(new Runnable() {
             public void run() {
-                while (progressStatus < 200) {
-                    progressStatus = doSomeWork();
+                while (progressStatus < 100) {
+                    progressStatus = percentdone;
                     handler.post(new Runnable() {
                         public void run() {
-                            progressBar.setProgress(progressStatus);
+                            buildMazeConfig();
+                            progressBar.setProgress(progressStatus, true);
+                        //    progressBar.setProgress(progressStatus);
                         }
                     });
                 }
@@ -165,15 +154,26 @@ public class GeneratingActivity extends AppCompatActivity {
                 });
             }
             private int doSomeWork() {
-                try {
+            //    try {
                     // ---simulate doing some work---
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return ++progress;
+            //        Thread.sleep(50);
+            //    } catch (InterruptedException e) {
+            //        e.printStackTrace();
+            //    }
+                return percentdone;
             }
         }).start();
+    }
+    private void builderFromString(String str) {
+        if(str.equals("DFS")) mazeGenAlgorithm = Builder.DFS;
+        if(str.equals("Prim")) mazeGenAlgorithm = Builder.Prim;
+        if(str.equals("Boruvka")) mazeGenAlgorithm = Builder.Boruvka;
+    }
+    private void buildMazeConfig() {
+        factory = new MazeFactory();
+        seed = 13;
+        percentdone = 0;
+        factory.order(this);
     }
     /**
      * Sets up the onItemSelectedListener for the play type spinner.
@@ -296,5 +296,37 @@ public class GeneratingActivity extends AppCompatActivity {
         intent.putExtra("Robot type", robotType);
     }
 
+    @Override
+    public int getSkillLevel() {
+        return 0;
+    }
+
+    @Override
+    public Builder getBuilder() {
+        return mazeGenAlgorithm;
+    }
+
+    @Override
+    public boolean isPerfect() {
+        return perfect;
+    }
+
+    @Override
+    public int getSeed() {
+        return seed;
+    }
+
+    @Override
+    public void deliver(Maze mazeConfig) {
+        MazeSingleton mazeHolder = new MazeSingleton();
+        mazeHolder.setMazeInstance(mazeConfig);
+    }
+    @Override
+    public void updateProgress(int percentage) {
+        if (this.percentdone < percentage && percentage <= 100) {
+            this.percentdone = percentage;
+        //    draw() ;
+        }
+    }
 }
 

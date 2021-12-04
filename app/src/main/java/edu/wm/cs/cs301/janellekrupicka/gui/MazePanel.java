@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.fonts.Font;
 import android.util.AttributeSet;
 import android.view.View;
 import edu.wm.cs.cs301.janellekrupicka.gui.Constants;
@@ -29,11 +30,17 @@ public class MazePanel extends View implements P5PanelF21 {
         init();
         myTestImage(canvasNotes);
         commit();
+    //    paint(canvasNotes);
     }
+ //   public MazePanel() {
+ //       super();
+ //       init();
+ //       commit();
+ //   }
     private void init() {
         bitmap = bitmap.createBitmap(getContext().getResources().getDisplayMetrics(), 1000, 1000, Bitmap.Config.ARGB_8888);
         canvasNotes = new Canvas(bitmap);
-        paintTest = new Paint();
+    //    paintTest = new Paint();
     }
  //   @Override
  //   public void invalidate() {
@@ -63,7 +70,8 @@ public class MazePanel extends View implements P5PanelF21 {
         canvasNotes.setBitmap(bitmap);
     }
     public void paint(Canvas canvas) {
-
+    //    canvas.drawBitmap(bitmap, new Rect(0, 0, 1000, 1000), new Rect(0, 0, 1000, 1000), null);
+    //    invalidate();
     //    if (null == g) {
       //      System.out.println("MazePanel.paint: no graphics object, skipping drawImage operation");
       //  }
@@ -73,8 +81,8 @@ public class MazePanel extends View implements P5PanelF21 {
     }
     @Override
     public void commit() {
-        canvasNotes.drawBitmap(bitmap, new Rect(0, 0, 1000, 1000), new Rect(0, 0, 1000, 1000), null);
         invalidate();
+    //    canvasNotes.drawBitmap(bitmap, new Rect(0, 0, 1000, 1000), new Rect(0, 0, 1000, 1000), null);
     }
 
     @Override
@@ -207,10 +215,16 @@ public class MazePanel extends View implements P5PanelF21 {
         canvasNotes.drawArc(arc, startAngle, arcAngle, false, arcPaint);
     //    graphics.drawArc(x, y, width, height, startAngle, arcAngle);
     }
-
     @Override
     public void addMarker(float x, float y, String str) {
-
+        Paint markerPaint = new Paint();
+        markerPaint.setColor(color);
+        markerPaint.setTextSize(16);
+        canvasNotes.drawText(str, x, y, markerPaint);
+        //    int[] glyphID = {0};
+    //    float[] positions = {x, y};
+    //    Font font = new Font("serif", Graphics.Font.PlAIN, 16);
+    //    canvasNotes.drawGlyphs(glyphID, null, positions, null, null, font, markerPaint);
     //    Font markerFont = Font.decode("Serif-PLAIN-16");
     //    GlyphVector gv = markerFont.createGlyphVector(graphics.getFontRenderContext(), str);
     //    Rectangle2D rect = gv.getVisualBounds();
@@ -262,6 +276,7 @@ public class MazePanel extends View implements P5PanelF21 {
         addFilledOval(250, 250, 300, 300);
         setColor(Color.WHITE);
         addArc(300, 25, 300, 400, 100, 270);
+        addMarker(800, 300, "E");
     }
 
 }
