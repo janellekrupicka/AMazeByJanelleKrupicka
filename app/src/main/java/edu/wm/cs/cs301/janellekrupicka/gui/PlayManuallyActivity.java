@@ -46,6 +46,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
         showSolution();
         showVisibleWalls();
         pathLength = 0;
+        MazePanel mazePanel = findViewById(R.id.maze_panel);
+        mazePanel.commit();
     }
     /**
      * Called when ShortCut button is selected.

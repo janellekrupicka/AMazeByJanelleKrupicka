@@ -87,82 +87,59 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
         setContentView(R.layout.activity_generating);
         // get extras from AMazeActivity
         Intent intent = getIntent();
-        skillLevel=intent.getIntExtra("Skill level", 0);
-        perfect=!intent.getBooleanExtra("Rooms", true);
+        skillLevel = intent.getIntExtra("Skill level", 0);
+        perfect = !intent.getBooleanExtra("Rooms", true);
         builderFromString(intent.getStringExtra("Maze gen algorithm"));
-      //  mazeGenAlgorithm=intent.getStringExtra("Maze gen algorithm");
+        //  mazeGenAlgorithm=intent.getStringExtra("Maze gen algorithm");
         // set default robotType and start onItemSelectedListener
         robotType = getRobotType();
         // code for background thread from
         // http://www.java2s.com/Code/Android/UI/UsingThreadandProgressbar.htm
-        progress = 0;
-        progressBar = (ProgressBar) findViewById(R.id.loadingBar);
-        progressBar.setMax(100);
-
-        new Thread(new Runnable() {
-            public void run() {
-                while (progressStatus < 100) {
-                    progressStatus = percentdone;
-                    handler.post(new Runnable() {
-                        public void run() {
-                            buildMazeConfig();
-                            progressBar.setProgress(progressStatus, true);
-                        //    progressBar.setProgress(progressStatus);
-                        }
-                    });
-                }
-                handler.post(new Runnable() {
-                    public void run() {
-                        // after thread runs to operate progressBar,
-                        // check if the driver types has been selected.
-                        // if driver type has been selected, move to next activity.
-                        Spinner play_type = findViewById(R.id.play_type);
-                        String selectedPlay = play_type.getItemAtPosition(play_type.getSelectedItemPosition()).toString();
-                        if (selectedPlay.equals("None selected")) {
-                            // tell user to select a driver
-                            Toast.makeText(getBaseContext(), "Select driver to continue.", LENGTH_LONG).show();
-                            playTypeSpinnerSelection();
-                        }
-                        else if (selectedPlay.equals("Manual")) {
-                            driverType = "Manual";
-                            Toast.makeText(getBaseContext(), "Playing manually.", Toast.LENGTH_SHORT).show();
-                            Log.v("GeneratingActivity", "Playing manually.");
-                            // go to play manually
-                            Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayManuallyActivity.class);
-                            setExtrasForIntent(intent);
-                            startActivity(intent);
-                        }
-                        else if (selectedPlay.equals("Wizard")) {
-                            driverType = "Wizard";
-                            Toast.makeText(getBaseContext(), "Playing with Wizard.", Toast.LENGTH_SHORT).show();
-                            Log.v("GeneratingActivity", "Playing with Wizard.");
-                            // go to play animation
-                            Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
-                            setExtrasForIntent(intent);
-                            startActivity(intent);
-                        }
-                        else if (selectedPlay.equals("Wallfollower")) {
-                            driverType = "Wallfollower";
-                            Toast.makeText(getBaseContext(), "Playing with Wallfollower.", Toast.LENGTH_SHORT).show();
-                            Log.v("GeneratingActivity", "Playing with Wallfollower.");
-                            // go to play animation
-                            Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
-                            setExtrasForIntent(intent);
-                            startActivity(intent);
-                        }
-                    }
-                });
-            }
-            private int doSomeWork() {
-            //    try {
-                    // ---simulate doing some work---
-            //        Thread.sleep(50);
-            //    } catch (InterruptedException e) {
-            //        e.printStackTrace();
-            //    }
-                return percentdone;
-            }
-        }).start();
+        //    progress = 0;
+        //    progressBar = (ProgressBar) findViewById(R.id.loadingBar);
+        //    progressBar.setMax(100);
+        buildMazeConfig();
+        factory.waitTillDelivered();
+        playTypeObserver();
+    }
+    private void playTypeObserver() {
+        Spinner play_type = findViewById(R.id.play_type);
+        String selectedPlay = play_type.getItemAtPosition(play_type.getSelectedItemPosition()).toString();
+        if (selectedPlay.equals("None selected")) {
+            // tell user to select a driver
+            Toast.makeText(getBaseContext(), "Select driver to continue.", LENGTH_LONG).show();
+            playTypeSpinnerSelection();
+        }
+        else if (selectedPlay.equals("Manual")) {
+            driverType = "Manual";
+            Toast.makeText(getBaseContext(), "Playing manually.", Toast.LENGTH_SHORT).show();
+            Log.v("GeneratingActivity", "Playing manually.");
+            // go to play manually
+            Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayManuallyActivity.class);
+            setExtrasForIntent(intent);
+            startActivity(intent);
+            finish();
+        }
+        else if (selectedPlay.equals("Wizard")) {
+            driverType = "Wizard";
+            Toast.makeText(getBaseContext(), "Playing with Wizard.", Toast.LENGTH_SHORT).show();
+            Log.v("GeneratingActivity", "Playing with Wizard.");
+            // go to play animation
+            Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
+            setExtrasForIntent(intent);
+            startActivity(intent);
+            finish();
+        }
+        else if (selectedPlay.equals("Wallfollower")) {
+            driverType = "Wallfollower";
+            Toast.makeText(getBaseContext(), "Playing with Wallfollower.", Toast.LENGTH_SHORT).show();
+            Log.v("GeneratingActivity", "Playing with Wallfollower.");
+            // go to play animation
+            Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
+            setExtrasForIntent(intent);
+            startActivity(intent);
+            finish();
+        }
     }
     private void builderFromString(String str) {
         if(str.equals("DFS")) mazeGenAlgorithm = Builder.DFS;
@@ -202,6 +179,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayManuallyActivity.class);
                     setExtrasForIntent(intent);
                     startActivity(intent);
+                    finish();
                 }
                 // in position 2 is "Wizard"
                 if (l == 2) {
@@ -211,6 +189,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
                     setExtrasForIntent(intent);
                     startActivity(intent);
+                    finish();
                 }
                 // in position 3 is "Wallfollower"
                 if (l == 3) {
@@ -220,6 +199,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
                     setExtrasForIntent(intent);
                     startActivity(intent);
+                    finish();
                 }
             }
             @Override
@@ -323,8 +303,12 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
     }
     @Override
     public void updateProgress(int percentage) {
+        progressBar = (ProgressBar) findViewById(R.id.loadingBar);
+        progressBar.setMax(100);
         if (this.percentdone < percentage && percentage <= 100) {
             this.percentdone = percentage;
+            progressBar.setProgress(percentdone, true);
+
         //    draw() ;
         }
     }

@@ -79,12 +79,10 @@ public class MazeBuilder implements Runnable {
 			// place rooms in maze as needed
 			if (rooms > 0)
 				generateRooms();
-			
 			Thread.sleep(SLEEP_INTERVAL) ; // test if thread has been interrupted, i.e. notified to stop
 
 			// put pathways into the maze, determine its starting and end position and calculate distances
 			generate();
-
 			Thread.sleep(SLEEP_INTERVAL) ; // test if thread has been interrupted, i.e. notified to stop
 
 			final int colchange = random.nextIntWithinInterval(0, 255); // used in the constructor for Segments  class Seg
