@@ -142,8 +142,9 @@ public class StatePlaying extends DefaultState {
         assert(dx == 1);
         assert(dy == 0);
 	}
- 
-
+	public int getDistanceToExit() {
+	    return mazeConfig.getDistanceToExit(px, py);
+    }
     /**
      * Method incorporates all reactions to keyboard input in original code, 
      * The simple key listener calls this method to communicate input.

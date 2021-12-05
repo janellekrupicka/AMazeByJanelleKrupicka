@@ -37,6 +37,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
     private Maze maze;
     private StatePlaying statePlaying;
     private int skillLevel;
+    private int shortestPath;
     /**
      * Sets up layout for activity.
      * Starts onCheckedChangeListener for show map toggle,
@@ -53,11 +54,12 @@ public class PlayManuallyActivity extends AppCompatActivity {
         skillLevel = intent.getIntExtra("Skill level", 0);
         showMap();
         showSolution();
-        showVisibleWalls();
+        showVisibleWallsShowMapOff();
         pathLength = 0;
         maze=MazeSingleton.getInstance().getMaze();
         MazePanel mazePanel = findViewById(R.id.maze_panel);
         statePlaying.start(mazePanel);
+        shortestPath = statePlaying.getDistanceToExit();
     //    mazePanel.commit();
     }
     public void setStatePlaying(StatePlaying statePlaying) {
@@ -66,7 +68,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
     public void moveToNextActivity() {
         Intent intent = new Intent(this, WinningActivity.class);
         intent.putExtra("Path length", pathLength); // will get from controller
-        intent.putExtra("Shortest path length", 0); // will get from controller
+        intent.putExtra("Shortest path length", shortestPath); // will get from controller
         startActivity(intent);
     }
     /**
@@ -151,12 +153,16 @@ public class PlayManuallyActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
+                    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
+                    showVisibleWallsShowMapOn();
                 //    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
                     Toast.makeText(getBaseContext(), "Showing map", Toast.LENGTH_SHORT).show();
                     Log.v("PlayManuallyActivity", "Show map turned on");
                 }
                 if(!isChecked) {
                     statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
+                    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
+                    showVisibleWallsShowMapOn();
                 //    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
                     Toast.makeText(getBaseContext(), "Not showing map", Toast.LENGTH_SHORT).show();
                     Log.v("PlayManuallyActivity", "Show map turned off");
@@ -191,7 +197,24 @@ public class PlayManuallyActivity extends AppCompatActivity {
      * Will show visible walls when is checked, currently just shows
      * toast and log.v output when toggle is selected.
      */
-    private void showVisibleWalls() {
+    private void showVisibleWallsShowMapOn() {
+        Switch showVisibleWalls=(Switch) findViewById(R.id.show_walls);
+        showVisibleWalls.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                //    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
+                    Toast.makeText(getBaseContext(), "Showing visible walls", Toast.LENGTH_SHORT).show();
+                    Log.v("PlayManuallyActivity", "Show visible walls turned on");
+                }
+                if(!isChecked) {
+                //    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
+                    Toast.makeText(getBaseContext(), "Not showing visible walls", Toast.LENGTH_SHORT).show();
+                    Log.v("PlayManuallyActivity", "Show visible walls turned off");
+                }
+            }
+        });
+    }
+    private void showVisibleWallsShowMapOff() {
         Switch showVisibleWalls=(Switch) findViewById(R.id.show_walls);
         showVisibleWalls.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -208,4 +231,5 @@ public class PlayManuallyActivity extends AppCompatActivity {
             }
         });
     }
+
 }
