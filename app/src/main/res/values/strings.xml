@@ -16,9 +16,6 @@
     <string name="forward_arrow">Forward</string>
     <string name="left_arrow">Left</string>
     <string name="right_arrow">Right</string>
-    <string name="show_map">Show map</string>
-    <string name="show_solution">Show solution</string>
-    <string name="show_walls">Show currently visible walls</string>
     <string name="map_scale">Map scale</string>
     <string name="map_scale_increse">+</string>
     <string name="map_scale_decrease">-</string>
@@ -36,4 +33,7 @@
     <string name="shortest_path_length">Shortest possible path length: </string>
     <string name="robot_end_energy">Amount of energy consumed: </string>
     <string name="reason_for_robot_stopping"> </string>
+    <string name="show_map">Turn map on/off</string>
+    <string name="show_solution">Turn solution on/off</string>
+    <string name="show_walls">Turn visible walls on/off</string>
 </resources>

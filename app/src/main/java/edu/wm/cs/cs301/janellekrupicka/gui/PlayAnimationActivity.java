@@ -128,6 +128,26 @@ public class PlayAnimationActivity extends AppCompatActivity {
         Toast.makeText(getBaseContext(), "Animation paused", Toast.LENGTH_SHORT).show();
         Log.v("PlayAnimationActivity", "Animation paused");
     }
+    public void showMap(View view) {
+        Log.v("PlayManuallyActivity", "Show map turned on/off");
+    //    statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
+    }
+    /**
+     * Starts onCheckedChangeListener for show solution toggle button.
+     * Will show solution when is checked, currently just shows
+     * toast and log.v output when toggle is selected.
+     */
+    public void showSolution(View view) {
+    //    statePlaying.keyDown(Constants.UserInput.TOGGLESOLUTION, skillLevel);
+        // Toast.makeText(getBaseContext(), "Showing solution", Toast.LENGTH_SHORT).show();
+        Log.v("PlayManuallyActivity", "Show map turned on/off");
+
+    }
+    public void showVisibleWalls(View view) {
+    //    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
+        //    Toast.makeText(getBaseContext(), "Showing visible walls", Toast.LENGTH_SHORT).show();
+        Log.v("PlayManuallyActivity", "Show visible walls turned on/oof");
+    }
     /**
      * Method to change sensor indicator color based on whether
      * sensor is operational. (Not yet used, will collaborate with robot).

@@ -39,7 +39,7 @@ public class Map {
 	final int viewHeight; // set to Constants.VIEW_HEIGHT
 	final int mapUnit;    // set to Constants.MAP_UNIT
 	final int stepSize;  // set to Constants.STEP_SIZE, typical value: map_unit/4
-	static final int white = Color.WHITE;
+	static final int white = Color.BLACK;
 	static final int gray = Color.BLACK;
 	static final int red = Color.RED;
 	static final int yellow = Color.YELLOW;

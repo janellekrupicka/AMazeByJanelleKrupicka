@@ -28,82 +28,47 @@
         class="edu.wm.cs.cs301.janellekrupicka.gui.MazePanel"
         android:layout_width="500dp"
         android:layout_height="500dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="159dp"
-        android:layout_marginEnd="149dp"
-        android:layout_marginBottom="144dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="75dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/forwardButton"
+        app:layout_constraintBottom_toTopOf="@+id/rightButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_walls" />
-
-    <Switch
-        android:id="@+id/show_map"
-        android:layout_width="133dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/sage_green"
-        android:fontFamily="cursive"
-        android:text="@string/show_map"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Switch
-        android:id="@+id/show_solution"
-        android:layout_width="155dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="104dp"
-        android:background="@color/sage_green"
-        android:fontFamily="cursive"
-        android:text="@string/show_solution"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Switch
-        android:id="@+id/show_walls"
-        android:layout_width="140dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="16dp"
-        android:background="@color/sage_green"
-        android:fontFamily="cursive"
-        android:text="@string/show_walls"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_map" />
+        app:layout_constraintTop_toBottomOf="@+id/map_scale" />
 
     <Button
         android:id="@+id/increase_scale"
         android:layout_width="60dp"
         android:layout_height="48dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="438dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/sage_green"
         android:onClick="increaseMapScale"
         android:text="@string/map_scale_increse"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/rightButton"
+        app:layout_constraintBottom_toTopOf="@+id/maze_panel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/decrease_scale"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/show_solution" />
 
     <Button
         android:id="@+id/decrease_scale"
         android:layout_width="60dp"
         android:layout_height="48dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="21dp"
         android:backgroundTint="@color/sage_green"
         android:onClick="decreaseMapScale"
         android:text="@string/map_scale_decrease"
         android:textColor="@color/black"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/maze_panel"
+        app:layout_constraintEnd_toStartOf="@+id/increase_scale"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/map_scale"
         app:layout_constraintTop_toBottomOf="@+id/show_solution" />
 
@@ -111,12 +76,14 @@
         android:id="@+id/map_scale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:background="@color/sage_green"
         android:fontFamily="cursive"
         android:text="@string/map_scale"
         android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/maze_panel"
+        app:layout_constraintEnd_toStartOf="@+id/decrease_scale"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/show_walls"
         app:layout_constraintTop_toBottomOf="@+id/show_solution" />
 
@@ -166,5 +133,56 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/forwardButton"
         app:srcCompat="@drawable/right_arrow" />
+
+    <Button
+        android:id="@+id/show_walls"
+        android:layout_width="152dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/sage_green"
+        android:fontFamily="cursive"
+        android:onClick="showVisibleWalls"
+        android:text="@string/show_walls"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/maze_panel"
+        app:layout_constraintEnd_toStartOf="@+id/map_scale"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_map" />
+
+    <Button
+        android:id="@+id/show_map"
+        android:layout_width="114dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="1dp"
+        android:backgroundTint="@color/sage_green"
+        android:fontFamily="cursive"
+        android:onClick="showMap"
+        android:text="@string/show_map"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/show_walls"
+        app:layout_constraintEnd_toStartOf="@+id/show_solution"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/show_solution"
+        android:layout_width="158dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="3dp"
+        android:backgroundTint="@color/sage_green"
+        android:fontFamily="cursive"
+        android:onClick="showSolution"
+        android:text="@string/show_solution"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/increase_scale"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/show_map"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

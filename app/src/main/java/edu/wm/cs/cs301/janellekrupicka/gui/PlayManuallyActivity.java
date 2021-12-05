@@ -52,9 +52,6 @@ public class PlayManuallyActivity extends AppCompatActivity {
         statePlaying.setActivity(this);
         Intent intent = getIntent();
         skillLevel = intent.getIntExtra("Skill level", 0);
-        showMap();
-        showSolution();
-        showVisibleWallsShowMapOff();
         pathLength = 0;
         maze=MazeSingleton.getInstance().getMaze();
         MazePanel mazePanel = findViewById(R.id.maze_panel);
@@ -141,95 +138,28 @@ public class PlayManuallyActivity extends AppCompatActivity {
         Log.v("PlayManuallyActivity", "Right button selected");
     }
     /**
-     * Starts onCheckedChangeListener for show map toggle button.
-     * Will show map when is checked, currently just shows
-     * toast and log.v output when toggle is selected.
+     *
      */
-    private void showMap() {
-        Switch showMap=(Switch) findViewById(R.id.show_map);
-        // code for onCheckedChangeListener from
-        // https://stackoverflow.com/questions/11278507/android-widget-switch-on-off-event-listener
-        showMap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
-                    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
-                    showVisibleWallsShowMapOn();
-                //    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
-                    Toast.makeText(getBaseContext(), "Showing map", Toast.LENGTH_SHORT).show();
-                    Log.v("PlayManuallyActivity", "Show map turned on");
-                }
-                if(!isChecked) {
-                    statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
-                    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
-                    showVisibleWallsShowMapOn();
-                //    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
-                    Toast.makeText(getBaseContext(), "Not showing map", Toast.LENGTH_SHORT).show();
-                    Log.v("PlayManuallyActivity", "Show map turned off");
-                }
-            }
-        });
+    public void showMap(View view) {
+        Log.v("PlayManuallyActivity", "Show map turned on/off");
+        statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
+
     }
     /**
      * Starts onCheckedChangeListener for show solution toggle button.
      * Will show solution when is checked, currently just shows
      * toast and log.v output when toggle is selected.
      */
-    private void showSolution() {
-        Switch showSolution=(Switch) findViewById(R.id.show_solution);
-        showSolution.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    statePlaying.keyDown(Constants.UserInput.TOGGLESOLUTION, skillLevel);
-                    Toast.makeText(getBaseContext(), "Showing solution", Toast.LENGTH_SHORT).show();
-                    Log.v("PlayManuallyActivity", "Show map turned on");
-                }
-                if(!isChecked) {
-                    statePlaying.keyDown(Constants.UserInput.TOGGLESOLUTION, skillLevel);
-                    Toast.makeText(getBaseContext(), "Not showing solution", Toast.LENGTH_SHORT).show();
-                    Log.v("PlayManuallyActivity", "Show solution turned off");
-                }
-            }
-        });
+    public void showSolution(View view) {
+        statePlaying.keyDown(Constants.UserInput.TOGGLESOLUTION, skillLevel);
+       // Toast.makeText(getBaseContext(), "Showing solution", Toast.LENGTH_SHORT).show();
+        Log.v("PlayManuallyActivity", "Show map turned on/off");
+
     }
-    /**
-     * Starts onCheckedChangeListener for show visible walls toggle button.
-     * Will show visible walls when is checked, currently just shows
-     * toast and log.v output when toggle is selected.
-     */
-    private void showVisibleWallsShowMapOn() {
-        Switch showVisibleWalls=(Switch) findViewById(R.id.show_walls);
-        showVisibleWalls.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                //    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
-                    Toast.makeText(getBaseContext(), "Showing visible walls", Toast.LENGTH_SHORT).show();
-                    Log.v("PlayManuallyActivity", "Show visible walls turned on");
-                }
-                if(!isChecked) {
-                //    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
-                    Toast.makeText(getBaseContext(), "Not showing visible walls", Toast.LENGTH_SHORT).show();
-                    Log.v("PlayManuallyActivity", "Show visible walls turned off");
-                }
-            }
-        });
-    }
-    private void showVisibleWallsShowMapOff() {
-        Switch showVisibleWalls=(Switch) findViewById(R.id.show_walls);
-        showVisibleWalls.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
-                    Toast.makeText(getBaseContext(), "Showing visible walls", Toast.LENGTH_SHORT).show();
-                    Log.v("PlayManuallyActivity", "Show visible walls turned on");
-                }
-                if(!isChecked) {
-                    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
-                    Toast.makeText(getBaseContext(), "Not showing visible walls", Toast.LENGTH_SHORT).show();
-                    Log.v("PlayManuallyActivity", "Show visible walls turned off");
-                }
-            }
-        });
+    public void showVisibleWalls(View view) {
+        statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
+    //    Toast.makeText(getBaseContext(), "Showing visible walls", Toast.LENGTH_SHORT).show();
+        Log.v("PlayManuallyActivity", "Show visible walls turned on/oof");
     }
 
 }
