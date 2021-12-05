@@ -274,6 +274,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
     private void setExtrasForIntent(Intent intent) {
         intent.putExtra("Driver type", driverType);
         intent.putExtra("Robot type", robotType);
+        intent.putExtra("Skill level", skillLevel);
     }
 
     @Override

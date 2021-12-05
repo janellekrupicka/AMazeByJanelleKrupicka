@@ -25,10 +25,11 @@ public class MazePanel extends View implements P5PanelF21 {
     private static Canvas canvasNotes;
     private static Paint paintTest;
     private static int color;
+    private static final int WIDTH = 1200;
     public MazePanel(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
-        myTestImage(canvasNotes);
+    //    myTestImage(canvasNotes);
         commit();
     //    paint(canvasNotes);
     }
@@ -38,7 +39,7 @@ public class MazePanel extends View implements P5PanelF21 {
  //       commit();
  //   }
     private void init() {
-        bitmap = bitmap.createBitmap(getContext().getResources().getDisplayMetrics(), 1000, 1000, Bitmap.Config.ARGB_8888);
+        bitmap = bitmap.createBitmap(getContext().getResources().getDisplayMetrics(), WIDTH, WIDTH, Bitmap.Config.ARGB_8888);
         canvasNotes = new Canvas(bitmap);
     //    paintTest = new Paint();
     }
@@ -48,11 +49,11 @@ public class MazePanel extends View implements P5PanelF21 {
  //   }
     @Override
     protected void onMeasure (int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(1000, 1000);
+        setMeasuredDimension(WIDTH, WIDTH);
     }
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawBitmap(bitmap, null, new Rect(0, 0, 1000, 1000), null);
+        canvas.drawBitmap(bitmap, null, new Rect(0, 0, WIDTH, WIDTH), null);
     //    myTestImage(canvas);
     //    canvas.setBitmap(bitmap);
     //      canvasUsed = canvas;
@@ -111,10 +112,10 @@ public class MazePanel extends View implements P5PanelF21 {
     public void addBackground(float percentToExit) {
     //    System.out.print(getBackgroundColor(percentToExit, true));
         setColor(Color.rgb(135,206,250));
-        addFilledRectangle(0, 0, 1000, 1000);
-        setColor(Color.rgb(1,50,32));
+        addFilledRectangle(0, 0, WIDTH, WIDTH);
+        setColor(Color.rgb(140,171,131));
     //    setColor(getBackgroundColor(percentToExit, false));
-        addFilledRectangle(0, 1000/2, 1000, 1000);
+        addFilledRectangle(0, WIDTH/2, WIDTH, WIDTH);
     //  setColor(getBackgroundColor(percentToExit, true));
         // graphics.fillRect(0, 0, viewWidth, viewHeight/2);
     //  addFilledRectangle(0, 0, viewWidth, viewHeight);

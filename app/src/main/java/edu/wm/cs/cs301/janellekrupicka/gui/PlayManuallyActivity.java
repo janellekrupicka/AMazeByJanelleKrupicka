@@ -35,6 +35,8 @@ import edu.wm.cs.cs301.janellekrupicka.generation.Maze;
 public class PlayManuallyActivity extends AppCompatActivity {
     private int pathLength;
     private Maze maze;
+    private StatePlaying statePlaying;
+    private int skillLevel;
     /**
      * Sets up layout for activity.
      * Starts onCheckedChangeListener for show map toggle,
@@ -45,13 +47,27 @@ public class PlayManuallyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_manually);
+        statePlaying = new StatePlaying();
+        statePlaying.setActivity(this);
+        Intent intent = getIntent();
+        skillLevel = intent.getIntExtra("Skill level", 0);
         showMap();
         showSolution();
         showVisibleWalls();
         pathLength = 0;
         maze=MazeSingleton.getInstance().getMaze();
         MazePanel mazePanel = findViewById(R.id.maze_panel);
-        mazePanel.commit();
+        statePlaying.start(mazePanel);
+    //    mazePanel.commit();
+    }
+    public void setStatePlaying(StatePlaying statePlaying) {
+        this.statePlaying = statePlaying;
+    }
+    public void moveToNextActivity() {
+        Intent intent = new Intent(this, WinningActivity.class);
+        intent.putExtra("Path length", pathLength); // will get from controller
+        intent.putExtra("Shortest path length", 0); // will get from controller
+        startActivity(intent);
     }
     /**
      * Called when ShortCut button is selected.
@@ -73,6 +89,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
      * @param view
      */
     public void increaseMapScale(View view) {
+        statePlaying.keyDown(Constants.UserInput.ZOOMIN, skillLevel);
         Toast.makeText(getBaseContext(), "Map scale increased", Toast.LENGTH_SHORT).show();
         Log.v("PlayManuallyActivity", "Map scale increase selected");
     }
@@ -83,6 +100,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
      * @param view
      */
     public void decreaseMapScale(View view) {
+        statePlaying.keyDown(Constants.UserInput.ZOOMOUT, skillLevel);
         Toast.makeText(getBaseContext(), "Map scale decreased", Toast.LENGTH_SHORT).show();
         Log.v("PlayManuallyActivity", "Map scale decrease selected");
     }
@@ -93,6 +111,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
      * @param view
      */
     public void moveForward(View view) {
+        statePlaying.keyDown(Constants.UserInput.UP, skillLevel);
         pathLength++;
         Toast.makeText(getBaseContext(), "Move forward", Toast.LENGTH_SHORT).show();
         Log.v("PlayManuallyActivity", "Forward button selected");
@@ -104,6 +123,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
      * @param view
      */
     public void turnLeft(View view) {
+        statePlaying.keyDown(Constants.UserInput.LEFT, skillLevel);
         Toast.makeText(getBaseContext(), "Turn left", Toast.LENGTH_SHORT).show();
         Log.v("PlayManuallyActivity", "Left button selected");
     }
@@ -114,6 +134,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
      * @param view
      */
     public void turnRight(View view) {
+        statePlaying.keyDown(Constants.UserInput.RIGHT, skillLevel);
         Toast.makeText(getBaseContext(), "Turn right", Toast.LENGTH_SHORT).show();
         Log.v("PlayManuallyActivity", "Right button selected");
     }
@@ -129,10 +150,14 @@ public class PlayManuallyActivity extends AppCompatActivity {
         showMap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
+                    statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
+                //    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
                     Toast.makeText(getBaseContext(), "Showing map", Toast.LENGTH_SHORT).show();
                     Log.v("PlayManuallyActivity", "Show map turned on");
                 }
                 if(!isChecked) {
+                    statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
+                //    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
                     Toast.makeText(getBaseContext(), "Not showing map", Toast.LENGTH_SHORT).show();
                     Log.v("PlayManuallyActivity", "Show map turned off");
                 }
@@ -149,10 +174,12 @@ public class PlayManuallyActivity extends AppCompatActivity {
         showSolution.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
+                    statePlaying.keyDown(Constants.UserInput.TOGGLESOLUTION, skillLevel);
                     Toast.makeText(getBaseContext(), "Showing solution", Toast.LENGTH_SHORT).show();
                     Log.v("PlayManuallyActivity", "Show map turned on");
                 }
                 if(!isChecked) {
+                    statePlaying.keyDown(Constants.UserInput.TOGGLESOLUTION, skillLevel);
                     Toast.makeText(getBaseContext(), "Not showing solution", Toast.LENGTH_SHORT).show();
                     Log.v("PlayManuallyActivity", "Show solution turned off");
                 }
@@ -169,10 +196,12 @@ public class PlayManuallyActivity extends AppCompatActivity {
         showVisibleWalls.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
+                    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
                     Toast.makeText(getBaseContext(), "Showing visible walls", Toast.LENGTH_SHORT).show();
                     Log.v("PlayManuallyActivity", "Show visible walls turned on");
                 }
                 if(!isChecked) {
+                    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
                     Toast.makeText(getBaseContext(), "Not showing visible walls", Toast.LENGTH_SHORT).show();
                     Log.v("PlayManuallyActivity", "Show visible walls turned off");
                 }

@@ -6,6 +6,8 @@ package edu.wm.cs.cs301.janellekrupicka.gui;
 //import java.awt.Color;
 //import java.awt.Graphics;
 //import java.awt.Graphics2D;
+import android.util.Log;
+
 import java.util.List;
 
 import edu.wm.cs.cs301.janellekrupicka.generation.BSPBranch;
@@ -169,10 +171,10 @@ public class FirstPersonView {
 		// obtain a Graphics2D object we can draw on
 	//	panel.getBufferGraphics();
         // viewers draw on the buffer graphics
-        if (!panel.isOperational()) {
-            System.out.println("FirstPersonDrawer.draw: can't get graphics object to draw on, skipping redraw operation") ;
-            return;
-        }
+    //    if (!panel.isOperational()) {
+    //        System.out.println("FirstPersonDrawer.draw: can't get graphics object to draw on, skipping redraw operation") ;
+    //        return;
+    //    }
        // gc = (Graphics2D) g ;
         
         // update fields angle, viewx, viewy for current position and viewing angle
@@ -195,6 +197,7 @@ public class FirstPersonView {
         		drawRectCounter = drawRectLateCounter = drawRectWallCounter = 0;
         //
         drawAllVisibleSectors(panel, bspRoot);
+    //    panel.commit();
 	}
 
 
@@ -245,6 +248,7 @@ public class FirstPersonView {
 	 * @param node is the current node of interest
 	 */
 	private void drawAllVisibleSectors(MazePanel panel, BSPNode node) {
+		Log.v("FirstPersonView", "In drawAllVisibleSectors");
 		traverseNodeCounter++; // debug
 		
 		// Anchor, stop recursion at leaf nodes
@@ -391,6 +395,7 @@ public class FirstPersonView {
 	 * @param node is the leaf node
 	 */
 	private void drawAllWallsOfASector(MazePanel panel, BSPLeaf node) {
+		Log.v("FirstPersonView", "In drawAllWallsOfASector");
 		List<Wall> allWalls = node.getAllWalls();
 		// debug
 		traverseWallSectorCounter++;
@@ -424,6 +429,7 @@ public class FirstPersonView {
 	 * @param wall whose seen attribute may be set to true
 	 */
 	private void drawWall(MazePanel panel, Wall wall) {
+		Log.v("FirstPersonView", "In drawWall");
 		drawRectCounter++; // debug, counter
 		
 		// some notes: 

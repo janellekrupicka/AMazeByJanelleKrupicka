@@ -1,12 +1,14 @@
 package edu.wm.cs.cs301.janellekrupicka.generation;
 
 //import java.awt.Color;
+import android.graphics.Color;
+
 import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-//import gui.MazeFileWriter;
+import edu.wm.cs.cs301.janellekrupicka.gui.MazeFileWriter;
 import edu.wm.cs.cs301.janellekrupicka.gui.P5PanelF21;
 
 /**
@@ -228,25 +230,25 @@ public class Wall {
      * @param i
      *            id for this element
      */
- //   public void storeWall(final Document doc, final Element mazeXML,
-   //         final int number, final int i) {
-   //     MazeFileWriter.appendChild(doc, mazeXML, "distSeg_" + number + "_" + i,
-     //           dist);
-   //     MazeFileWriter.appendChild(doc, mazeXML, "dxSeg_" + number + "_" + i,
-     //           getExtensionX());
-    //    MazeFileWriter.appendChild(doc, mazeXML, "dySeg_" + number + "_" + i,
-    //            getExtensionY());
-   //     MazeFileWriter.appendChild(doc, mazeXML,
-     //           "partitionSeg_" + number + "_" + i, isPartition());
-     //   MazeFileWriter.appendChild(doc, mazeXML, "seenSeg_" + number + "_" + i,
-     //           isSeen());
-     //   MazeFileWriter.appendChild(doc, mazeXML, "xSeg_" + number + "_" + i,
-     //           getStartPositionX());
-     //   MazeFileWriter.appendChild(doc, mazeXML, "ySeg_" + number + "_" + i,
-     //           getStartPositionY());
-     //   MazeFileWriter.appendChild(doc, mazeXML, "colSeg_" + number + "_" + i,
-     //           getColor());
-  //  }
+    public void storeWall(final Document doc, final Element mazeXML,
+            final int number, final int i) {
+        MazeFileWriter.appendChild(doc, mazeXML, "distSeg_" + number + "_" + i,
+                dist);
+        MazeFileWriter.appendChild(doc, mazeXML, "dxSeg_" + number + "_" + i,
+                getExtensionX());
+        MazeFileWriter.appendChild(doc, mazeXML, "dySeg_" + number + "_" + i,
+                getExtensionY());
+        MazeFileWriter.appendChild(doc, mazeXML,
+                "partitionSeg_" + number + "_" + i, isPartition());
+        MazeFileWriter.appendChild(doc, mazeXML, "seenSeg_" + number + "_" + i,
+                isSeen());
+        MazeFileWriter.appendChild(doc, mazeXML, "xSeg_" + number + "_" + i,
+                getStartPositionX());
+        MazeFileWriter.appendChild(doc, mazeXML, "ySeg_" + number + "_" + i,
+                getStartPositionY());
+        MazeFileWriter.appendChild(doc, mazeXML, "colSeg_" + number + "_" + i,
+                getColor());
+    }
 
     /**
      * Equals method that checks if the other object matches in dimensions and
@@ -346,7 +348,7 @@ public class Wall {
      * @return the color
      */
     public int getColor() {
-        return col;
+        return Color.LTGRAY;
     }
 
     /**

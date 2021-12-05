@@ -8,7 +8,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-//import gui.MazeFileWriter;
+import edu.wm.cs.cs301.janellekrupicka.gui.MazeFileWriter;
 
 /**
  * A leaf node for a tree of BSPNodes. It carries a list of walls. 
@@ -64,21 +64,21 @@ public class BSPLeaf extends BSPNode {
 	 * @param number is an index number for this node in the XML format
 	 * @return the highest used index number, in this case the given number
 	 */
-//	@Override
-//	public int store(Document doc, Element mazeXML, int number) {
-//		super.store(doc, mazeXML, number) ; //leaves number unchanged
-//		if (!isIsleaf())
-//			System.out.println("WARNING: isleaf flag and class are inconsistent!");
+	@Override
+	public int store(Document doc, Element mazeXML, int number) {
+		super.store(doc, mazeXML, number) ; //leaves number unchanged
+		if (!isIsleaf())
+			System.out.println("WARNING: isleaf flag and class are inconsistent!");
 		// store list of walls, store total number of elements first
-//		MazeFileWriter.appendChild(doc, mazeXML, "numSeg_" + number, allWalls.size()) ;
-//		int i = 0 ;
-//		for (Wall wall : allWalls)
-//		{
-//			wall.storeWall(doc, mazeXML, number, i);
-//			i++ ;
-//		}
-//		return number ;
-//	}
+		MazeFileWriter.appendChild(doc, mazeXML, "numSeg_" + number, allWalls.size()) ;
+		int i = 0 ;
+		for (Wall wall : allWalls)
+		{
+			wall.storeWall(doc, mazeXML, number, i);
+			i++ ;
+		}
+		return number ;
+	}
 
 	/**
 	 * @return the list of walls 

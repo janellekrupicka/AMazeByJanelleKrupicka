@@ -3,6 +3,9 @@
  */
 package edu.wm.cs.cs301.janellekrupicka.gui;
 
+import android.graphics.Color;
+import android.util.Log;
+
 import edu.wm.cs.cs301.janellekrupicka.generation.CardinalDirection;
 import edu.wm.cs.cs301.janellekrupicka.generation.Floorplan;
 import edu.wm.cs.cs301.janellekrupicka.generation.Maze;
@@ -36,10 +39,10 @@ public class Map {
 	final int viewHeight; // set to Constants.VIEW_HEIGHT
 	final int mapUnit;    // set to Constants.MAP_UNIT
 	final int stepSize;  // set to Constants.STEP_SIZE, typical value: map_unit/4
-	static final int white = 16777215;
-	static final int gray = 10066329;
-	static final int red = 16711680;
-	static final int yellow = 16776960;
+	static final int white = Color.WHITE;
+	static final int gray = Color.BLACK;
+	static final int red = Color.RED;
+	static final int yellow = Color.YELLOW;
 	/**
 	 * The user can increment or decrement the scale of the map.
 	 * map_scale is used to keep track of the current setting.
@@ -132,16 +135,18 @@ public class Map {
 	 */
 	public void draw(MazePanel panel, int x, int y, int angle, int walkStep,
 			boolean showMaze, boolean showSolution) {
+		Log.v("Map", "In draw");
 	//	panel.getBufferGraphics() ;
         // viewers draw on the buffer graphics
-        if (!panel.isOperational()) {
-            System.out.println("MapDrawer.draw: can't get graphics object to draw on, skipping draw operation") ;
-            return;
-        }
+    //    if (!panel.isOperational()) {
+    //        System.out.println("MapDrawer.draw: can't get graphics object to draw on, skipping draw operation") ;
+    //        return;
+    //    }
         final int viewDX = getViewDX(angle); 
         final int viewDY = getViewDY(angle);
         drawMap(panel, x, y, walkStep, viewDX, viewDY, showMaze, showSolution) ;
         drawCurrentLocation(panel, viewDX, viewDY) ;
+        panel.commit();
 	}
 	//////////////////////////////// private, internal methods //////////////////////////////
 	/**
@@ -506,7 +511,6 @@ public class Map {
 	 * @param str the string to be printed for debugging purposes
 	 */
 	private void dbg(String str) {
-		// TODO: change this to a logger
 		System.out.println("MapDrawer:"+ str);
 	}
 }
