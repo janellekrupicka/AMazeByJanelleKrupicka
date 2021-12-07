@@ -35,7 +35,7 @@ public class ReliableSensor implements DistanceSensor {
 	 * Maze that the sensor uses to sense where
 	 * obstacles are.
 	 */
-	private Maze mazeUsed;
+	private static final Maze mazeUsed = MazeSingleton.getInstance().getMaze();
 	/**
 	 * Returns the int distance to a wall in a @param CardinalDirection
 	 * from @param currentPosition of robot. 
@@ -140,7 +140,7 @@ public class ReliableSensor implements DistanceSensor {
 	 */
 	@Override
 	public void setMaze(Maze maze) {
-		mazeUsed = maze; 
+	//	mazeUsed = maze;
 
 	}
 	/**

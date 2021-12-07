@@ -71,10 +71,12 @@ public class StatePlaying extends DefaultState {
     public void setActivityManual(PlayManuallyActivity activity) {
         manualActivity = activity;
         manual = true;
+        Log.v("StatePlaying", "Manual set to true");
     }
     public void setActivityAnimated(PlayAnimationActivity activity) {
         animationActivity = activity;
         manual = false;
+        Log.v("StatePlaying", "Manual set to false");
     }
     public StatePlaying() {
         started = false;
@@ -233,7 +235,7 @@ public class StatePlaying extends DefaultState {
         return true;
     }
     private void moveToWinning() {
-        if(manual=true) {
+        if(manual==true) {
             manualActivity.moveToNextActivity();
         }
         else {

@@ -248,7 +248,7 @@ public class FirstPersonView {
 	 * @param node is the current node of interest
 	 */
 	private void drawAllVisibleSectors(MazePanel panel, BSPNode node) {
-		Log.v("FirstPersonView", "In drawAllVisibleSectors");
+	//	Log.v("FirstPersonView", "In drawAllVisibleSectors");
 		traverseNodeCounter++; // debug
 		
 		// Anchor, stop recursion at leaf nodes
@@ -395,7 +395,7 @@ public class FirstPersonView {
 	 * @param node is the leaf node
 	 */
 	private void drawAllWallsOfASector(MazePanel panel, BSPLeaf node) {
-		Log.v("FirstPersonView", "In drawAllWallsOfASector");
+	//	Log.v("FirstPersonView", "In drawAllWallsOfASector");
 		List<Wall> allWalls = node.getAllWalls();
 		// debug
 		traverseWallSectorCounter++;
@@ -429,7 +429,7 @@ public class FirstPersonView {
 	 * @param wall whose seen attribute may be set to true
 	 */
 	private void drawWall(MazePanel panel, Wall wall) {
-		Log.v("FirstPersonView", "In drawWall");
+	//	Log.v("FirstPersonView", "In drawWall");
 		drawRectCounter++; // debug, counter
 		
 		// some notes: 

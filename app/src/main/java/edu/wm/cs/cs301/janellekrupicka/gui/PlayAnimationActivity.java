@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.amazebyjanellekrupicka.R;
 
+import edu.wm.cs.cs301.janellekrupicka.generation.Distance;
 import edu.wm.cs.cs301.janellekrupicka.generation.Maze;
 
 /**
@@ -56,6 +57,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play_animation);
         statePlaying = new StatePlaying();
         statePlaying.setActivityAnimated(this);
+        Log.v("PlayAnimationActivity", "Set activity to animated");
         Intent intent = getIntent();
         driverType=intent.getStringExtra("Driver type");
         robotType=intent.getStringExtra("Robot type");
@@ -67,6 +69,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
         MazePanel mazePanel = findViewById(R.id.maze_panel);
         statePlaying.start(mazePanel);
         shortestPath = statePlaying.getDistanceToExit();
+        startAnimation();
     }
     public void moveToNextActivity() {
         Intent intent = new Intent(this, WinningActivity.class);
@@ -75,6 +78,32 @@ public class PlayAnimationActivity extends AppCompatActivity {
         intent.putExtra("Shortest path length", shortestPath); // will get from controller
         intent.putExtra("Energy consumption", 0); // will get from controller
         startActivity(intent);
+    }
+    private void startAnimation() {
+        if(driverType.equals("Wizard")) {
+            Wizard wizard = new Wizard();
+            ReliableRobot robot = new ReliableRobot();
+            robot.setStatePlaying(statePlaying);
+            DistanceSensor forward  = new ReliableSensor();
+            forward.setSensorDirection(Robot.Direction.FORWARD);
+            DistanceSensor left = new ReliableSensor();
+            left.setSensorDirection(Robot.Direction.LEFT);
+            DistanceSensor backward = new ReliableSensor();
+            backward.setSensorDirection(Robot.Direction.BACKWARD);
+            DistanceSensor right = new ReliableSensor();
+            right.setSensorDirection(Robot.Direction.RIGHT);
+            robot.addDistanceSensor(forward, Robot.Direction.FORWARD);
+            robot.addDistanceSensor(left, Robot.Direction.LEFT);
+            robot.addDistanceSensor(right, Robot.Direction.RIGHT);
+            robot.addDistanceSensor(backward, Robot.Direction.BACKWARD);
+            wizard.setRobot(robot);
+            wizard.setMaze(maze);
+            try {
+                wizard.drive2Exit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     /**
      * Method called when Go2Winning is selected.
