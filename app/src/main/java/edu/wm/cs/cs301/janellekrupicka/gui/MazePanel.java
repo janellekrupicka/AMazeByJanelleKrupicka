@@ -220,7 +220,7 @@ public class MazePanel extends View implements P5PanelF21 {
     public void addMarker(float x, float y, String str) {
         Paint markerPaint = new Paint();
         markerPaint.setColor(color);
-        markerPaint.setTextSize(16);
+        markerPaint.setTextSize(24);
         canvasNotes.drawText(str, x, y, markerPaint);
         //    int[] glyphID = {0};
     //    float[] positions = {x, y};

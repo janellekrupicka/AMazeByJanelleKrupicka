@@ -49,7 +49,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_manually);
         statePlaying = new StatePlaying();
-        statePlaying.setActivity(this);
+        statePlaying.setActivityManual(this);
         Intent intent = getIntent();
         skillLevel = intent.getIntExtra("Skill level", 0);
         pathLength = 0;

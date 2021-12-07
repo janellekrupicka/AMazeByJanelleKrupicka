@@ -40,6 +40,9 @@ public class PlayAnimationActivity extends AppCompatActivity {
     private String driverType;
     private String robotType;
     private Maze maze;
+    private StatePlaying statePlaying;
+    private int skillLevel;
+    private int shortestPath;
     /**
      * Sets up layout for activity.
      * Gets extras from intent that sent to this activity.
@@ -51,12 +54,27 @@ public class PlayAnimationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_animation);
+        statePlaying = new StatePlaying();
+        statePlaying.setActivityAnimated(this);
         Intent intent = getIntent();
         driverType=intent.getStringExtra("Driver type");
         robotType=intent.getStringExtra("Robot type");
+        skillLevel = intent.getIntExtra("Skill level", 0);
         maze=MazeSingleton.getInstance().getMaze();
         getAnimationSpeed();
         showMap();
+        maze=MazeSingleton.getInstance().getMaze();
+        MazePanel mazePanel = findViewById(R.id.maze_panel);
+        statePlaying.start(mazePanel);
+        shortestPath = statePlaying.getDistanceToExit();
+    }
+    public void moveToNextActivity() {
+        Intent intent = new Intent(this, WinningActivity.class);
+        // will need for be changed so the values are no longer hard coded
+        intent.putExtra("Path length", 0); // will get from controller
+        intent.putExtra("Shortest path length", shortestPath); // will get from controller
+        intent.putExtra("Energy consumption", 0); // will get from controller
+        startActivity(intent);
     }
     /**
      * Method called when Go2Winning is selected.

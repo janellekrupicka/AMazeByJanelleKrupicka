@@ -3,6 +3,8 @@ package edu.wm.cs.cs301.janellekrupicka.gui;
 import android.content.Intent;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import edu.wm.cs.cs301.janellekrupicka.gui.Constants.UserInput;
 
 import edu.wm.cs.cs301.janellekrupicka.generation.CardinalDirection;
@@ -63,9 +65,16 @@ public class StatePlaying extends DefaultState {
     //private boolean newGame = false;
 
     boolean started;
-    private PlayManuallyActivity activity;
-    public void setActivity(PlayManuallyActivity activity) {
-        this.activity = activity;
+    private PlayManuallyActivity manualActivity;
+    private PlayAnimationActivity animationActivity;
+    private boolean manual;
+    public void setActivityManual(PlayManuallyActivity activity) {
+        manualActivity = activity;
+        manual = true;
+    }
+    public void setActivityAnimated(PlayAnimationActivity activity) {
+        animationActivity = activity;
+        manual = false;
     }
     public StatePlaying() {
         started = false;
@@ -102,7 +111,7 @@ public class StatePlaying extends DefaultState {
         // configure compass rose
         cr = new CompassRose();
         cr.setPositionAndSize(Constants.VIEW_WIDTH/2,
-        		(int)(0.1*Constants.VIEW_HEIGHT),35);
+        		(int)(0.1*Constants.VIEW_HEIGHT),100);
         Log.v("StatePlaying", "In start");
         if (panel != null) {
         	startDrawer();
@@ -169,7 +178,7 @@ public class StatePlaying extends DefaultState {
             walk(1);
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
-               activity.moveToNextActivity();
+                moveToWinning();
             //    control.switchFromPlayingToWinning(0);
             }
             break;
@@ -183,7 +192,7 @@ public class StatePlaying extends DefaultState {
             walk(-1);
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
-                activity.moveToNextActivity();
+                moveToWinning();
             }
             break;
     //    case RETURNTOTITLE: // escape to title screen
@@ -222,6 +231,14 @@ public class StatePlaying extends DefaultState {
             break ;
         } // end of internal switch statement for playing state
         return true;
+    }
+    private void moveToWinning() {
+        if(manual=true) {
+            manualActivity.moveToNextActivity();
+        }
+        else {
+            animationActivity.moveToNextActivity();
+        }
     }
     /**
      * Draws the current content on panel to show it on screen.
@@ -282,13 +299,13 @@ public class StatePlaying extends DefaultState {
 	}
 
     ////////////////////////////// get methods ///////////////////////////////////////////////////////////////
-    protected int[] getCurrentPosition() {
+    public int[] getCurrentPosition() {
         int[] result = new int[2];
         result[0] = px;
         result[1] = py;
         return result;
     }
-    protected CardinalDirection getCurrentDirection() {
+    public CardinalDirection getCurrentDirection() {
         return CardinalDirection.getDirection(dx, dy);
     }
     boolean isInMapMode() { 

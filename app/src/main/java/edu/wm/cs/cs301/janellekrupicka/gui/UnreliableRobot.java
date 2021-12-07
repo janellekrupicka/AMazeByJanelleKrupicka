@@ -148,7 +148,7 @@ public class UnreliableRobot extends ReliableRobot {
 				return distanceToObstacleRight();
 			case FORWARD:
 				// forward sensor look in current direction
-				return sensorForward.distanceToObstacle(getCurrentPosition(), robotController.getCurrentDirection(), batteryLevel);
+				return sensorForward.distanceToObstacle(getCurrentPosition(), statePlaying.getCurrentDirection(), batteryLevel);
 			case BACKWARD:
 				return distanceToObstacleBackward();
 		}
@@ -196,7 +196,7 @@ public class UnreliableRobot extends ReliableRobot {
 	 * @throws Exception
 	 */
 	private int distanceToObstacleLeft() throws Exception {
-		switch(robotController.getCurrentDirection()) {
+		switch(statePlaying.getCurrentDirection()) {
 		case North:
 			// if left sensor and north current direction, look east
 			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.East, batteryLevel);
@@ -220,7 +220,7 @@ public class UnreliableRobot extends ReliableRobot {
 	 * @throws Exception
 	 */
 	private int distanceToObstacleRight() throws Exception {
-		switch(robotController.getCurrentDirection()) {
+		switch(statePlaying.getCurrentDirection()) {
 		case North:
 			// if right sensor and north current direction, look west
 			return sensorRight.distanceToObstacle(getCurrentPosition(), CardinalDirection.West, batteryLevel);
@@ -245,7 +245,7 @@ public class UnreliableRobot extends ReliableRobot {
 	 * @throws Exception
 	 */
 	private int distanceToObstacleBackward() throws Exception {
-		switch(robotController.getCurrentDirection()) {
+		switch(statePlaying.getCurrentDirection()) {
 		case North:
 			// if backward sensor and north current direction, look south
 			return sensorBackward.distanceToObstacle(getCurrentPosition(), CardinalDirection.South, batteryLevel);

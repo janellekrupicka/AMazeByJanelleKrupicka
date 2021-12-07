@@ -8,6 +8,8 @@ package edu.wm.cs.cs301.janellekrupicka.gui;
 //import java.awt.font.GlyphVector;
 //import java.awt.geom.Rectangle2D;
 
+import android.graphics.Color;
+
 import edu.wm.cs.cs301.janellekrupicka.generation.CardinalDirection;
 import edu.wm.cs.cs301.janellekrupicka.gui.P5PanelF21.P5RenderingHints;
 
@@ -24,25 +26,28 @@ public class CompassRose {
 	
 	// some fixed color settings
 	private static final int greenWM = 1136448;
-	private static final int goldWM = 9531201;
+	private static final int goldWM = Color.YELLOW;
 	
 	// fixed configuration for arms
-    private static final int MAIN_COLOR = greenWM; //new Color(0.4f, 0.4f, 1.0f);
+    private static final int MAIN_COLOR = Color.GREEN; //new Color(0.4f, 0.4f, 1.0f);
     private static final float MAIN_LENGTH = 0.95f;
     private static final float MAIN_WIDTH = 0.15f;
     
     // fixed configuration for circle surrounding arms
     private static final int CIRCLE_BORDER = 2;
-    private static final int CIRCLE_HIGHLIGHT = -16040916;
+	//2;
+    private static final int CIRCLE_HIGHLIGHT = Color.LTGRAY;
+	// -16040916;
     //private static final Color CIRCLE_HIGHLIGHT = new Color(1.0f, 1.0f, 1.0f, 0.8f); 
     //Color.decode("#115740").darker();// = new Color(1.0f, 1.0f, 1.0f, 0.8f); 
     //private static final Color CIRCLE_SHADE = new Color(1.0f, 1.0f, 1.0f, 0.3f); 
-    private static final int CIRCLE_SHADE = -15172517;
+    private static final int CIRCLE_SHADE = Color.GRAY;
+	// -15172517;
     //Color.decode("#115740").brighter(); //new Color(0.0f, 0.0f, 0.0f, 0.2f); 
     
     // fixed configuration for letters used to indicate direction
-    private static final int MARKER_COLOR = 0;  
-    static final int white = 16777215;
+    private static final int MARKER_COLOR = Color.BLACK;
+    static final int white = Color.WHITE;
     /**
      * The font used to write letters N,E,S,W on compass rose. 
      * There is little need for flexibility, 

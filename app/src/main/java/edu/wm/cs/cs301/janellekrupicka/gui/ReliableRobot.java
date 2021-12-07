@@ -47,7 +47,8 @@ public class ReliableRobot implements Robot {
 	/**
 	 * Controller the robot collaborates with.
 	 */
-	protected Controller robotController;
+//	protected Controller robotController;
+	protected StatePlaying statePlaying;
 	// battery level
 	/**
 	 * Float array for batteryLevel.
@@ -100,9 +101,11 @@ public class ReliableRobot implements Robot {
 			throw new IllegalArgumentException();
 		}
 		// set controller instance variable with input
-		robotController = controller;
+	//	robotController = controller;
 	}
-	
+	public void setStatePlaying(StatePlaying state) {
+		statePlaying = state;
+	}
 	/**
 	 * addDistanceSensor at left, right, forward, or backward
 	 * given input direciton. Sets instance variable for sensor
@@ -143,8 +146,8 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public int[] getCurrentPosition() throws Exception {
-		int[] currentPosition = robotController.getCurrentPosition();
-		if (robotController.getMazeConfiguration().isValidPosition(currentPosition[0], currentPosition[1])) {
+		int[] currentPosition = statePlaying.getCurrentPosition();
+		if (statePlaying.getMazeConfiguration().isValidPosition(currentPosition[0], currentPosition[1])) {
 			return currentPosition;
 		}
 		else throw new Exception("Position is outside of maze.");
@@ -155,7 +158,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public CardinalDirection getCurrentDirection() {
-		return robotController.getCurrentDirection();
+		return statePlaying.getCurrentDirection();
 	}
 	/**
 	 * getBatteryLevel returns power supply saved in instance variable
@@ -258,10 +261,10 @@ public class ReliableRobot implements Robot {
 			// if robot has not stopped, turn
 			switch(turn) {
 				case LEFT:
-					robotController.keyDown(UserInput.LEFT, 0);
+					statePlaying.keyDown(UserInput.LEFT, 0);
 					break;
 				case RIGHT:
-					robotController.keyDown(UserInput.RIGHT, 0);
+					statePlaying.keyDown(UserInput.RIGHT, 0);
 					break;
 				case AROUND:
 					break;
@@ -295,7 +298,7 @@ public class ReliableRobot implements Robot {
 			else {
 				// if robot has enough energy and isn't running into a wall,
 				// move forward
-				robotController.keyDown(UserInput.UP, 0);
+				statePlaying.keyDown(UserInput.UP, 0);
 				// update battery level
 				batteryLevel[0] = batteryLevel[0] - getEnergyForStepForward() + 1;
 				// robot travels one block, so odometer increases by 1
@@ -316,10 +319,10 @@ public class ReliableRobot implements Robot {
 	public void jump() {
 		int[] positionToJumpTo = {0,0};
 		// int position to jump to
-		int[] currentPosition = robotController.getCurrentPosition();
+		int[] currentPosition = statePlaying.getCurrentPosition();
 		// switch to find position that robot will jump to in
 		// forward direction
-		switch(robotController.getCurrentDirection()) {
+		switch(statePlaying.getCurrentDirection()) {
 			case North:
 				positionToJumpTo[0] = currentPosition[0];
 				positionToJumpTo[1] = currentPosition[1]-1;
@@ -335,13 +338,13 @@ public class ReliableRobot implements Robot {
 		}
 		// determine if the found position is a valid position (is in the maze)
 		// if it isn't a valid position, the robot is stopped
-		if(!robotController.getMazeConfiguration().isValidPosition(positionToJumpTo[0], positionToJumpTo[1])) {
+		if(!statePlaying.getMazeConfiguration().isValidPosition(positionToJumpTo[0], positionToJumpTo[1])) {
 			stopped = true;
 		}
 		// if the robot doesn't have enough energy to jump, the robot stops
 		if(batteryLevel[0]-ENERGY_FOR_JUMP<1) stopped = true;
 		if(!stopped) {
-			robotController.keyDown(UserInput.JUMP, 0);
+			statePlaying.keyDown(UserInput.JUMP, 0);
 			// update energy spent by robot
 			batteryLevel[0] = batteryLevel[0] - ENERGY_FOR_JUMP;
 			// update blocks traveled by robot
@@ -354,9 +357,9 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public boolean isAtExit() {
-		int[] curPosition = robotController.getCurrentPosition();
+		int[] curPosition = statePlaying.getCurrentPosition();
 		// gets maze from controller to get the exit position from floor plan
-		Maze maze = robotController.getMazeConfiguration();
+		Maze maze = statePlaying.getMazeConfiguration();
 		// determines if current position is exit position
 		return maze.getFloorplan().isExitPosition(curPosition[0], curPosition[1]);
 	}
@@ -366,8 +369,8 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public boolean isInsideRoom() {
-		Maze maze = robotController.getMazeConfiguration();
-		int[] currentPosition = robotController.getCurrentPosition();
+		Maze maze = statePlaying.getMazeConfiguration();
+		int[] currentPosition = statePlaying.getCurrentPosition();
 		return maze.isInRoom(currentPosition[0], currentPosition[1]);
 	}
 	/**
@@ -398,7 +401,7 @@ public class ReliableRobot implements Robot {
 				return findRightSensorDistance();
 			case FORWARD:
 				// if direction forward, same cardinal direction as current direction
-				return sensorForward.distanceToObstacle(getCurrentPosition(), robotController.getCurrentDirection(), batteryLevel);
+				return sensorForward.distanceToObstacle(getCurrentPosition(), statePlaying.getCurrentDirection(), batteryLevel);
 			case BACKWARD:
 				return findBackwardSensorDistance();
 		}
@@ -436,7 +439,7 @@ public class ReliableRobot implements Robot {
 	 * Takes into account north and south being flipped in gui.
 	 */
 	private int findLeftSensorDistance() throws Exception {
-		switch(robotController.getCurrentDirection()) {
+		switch(statePlaying.getCurrentDirection()) {
 		case North:
 			// if current direction is north, left is east
 			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.East, batteryLevel);
@@ -460,7 +463,7 @@ public class ReliableRobot implements Robot {
 	 * Takes into account north and south being flipped in gui.
 	 */
 	private int findRightSensorDistance() throws Exception {
-		switch(robotController.getCurrentDirection()) {
+		switch(statePlaying.getCurrentDirection()) {
 		case North:
 			// if current direction is north, right is west
 			return sensorRight.distanceToObstacle(getCurrentPosition(), CardinalDirection.West, batteryLevel);
@@ -484,7 +487,7 @@ public class ReliableRobot implements Robot {
 	 * Takes into account north and south being flipped in gui.
 	 */
 	private int findBackwardSensorDistance() throws Exception {
-		switch(robotController.getCurrentDirection()) {
+		switch(statePlaying.getCurrentDirection()) {
 		case North:
 			// if current direction is north, backward is south
 			return sensorBackward.distanceToObstacle(getCurrentPosition(), CardinalDirection.South, batteryLevel);
@@ -536,8 +539,8 @@ public class ReliableRobot implements Robot {
 	// Methods for Testing //
 	/////////////////////////
 	
-	public Controller getController() {
-		return robotController;
-	}
+//	public Controller getController() {
+//		return robotController;
+//	}
 
 }
