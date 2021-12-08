@@ -67,6 +67,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
         intent.putExtra("Path length", pathLength); // will get from controller
         intent.putExtra("Shortest path length", shortestPath); // will get from controller
         startActivity(intent);
+        finish();
     }
     /**
      * Called when ShortCut button is selected.

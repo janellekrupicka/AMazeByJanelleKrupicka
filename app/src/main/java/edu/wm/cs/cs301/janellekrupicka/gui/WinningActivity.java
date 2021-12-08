@@ -40,7 +40,7 @@ public class WinningActivity extends AppCompatActivity {
     /**
      * Energy consumed by robot if not played manually.
      */
-    private int energyConsumed;
+    private float energyConsumed;
     /**
      * Sets up layout for activity.
      * Sets the path length and shortest path.
@@ -61,7 +61,7 @@ public class WinningActivity extends AppCompatActivity {
             shortestPath = intent.getIntExtra("Shortest path length", 500);
             if(intent.hasExtra("Energy consumption")) {
                 manual = false;
-                energyConsumed = intent.getIntExtra("Energy consumption", 500);
+                energyConsumed = intent.getFloatExtra("Energy consumption", 500);
             }
             if(!intent.hasExtra("Energy consumption")) {
                 manual = true;

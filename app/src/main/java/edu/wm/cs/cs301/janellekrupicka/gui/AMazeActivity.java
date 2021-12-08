@@ -5,7 +5,9 @@ import static android.widget.Toast.LENGTH_LONG;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,8 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.amazebyjanellekrupicka.R;
+
+import java.util.Random;
 
 /**
  *Initial activity state for the UI.
@@ -44,6 +48,7 @@ public class AMazeActivity extends AppCompatActivity {
      * DFS, Prim, or Boruvka
      */
     private String mazeGenAlgorithm;
+    private int seed;
     /**
      * Method called when AMazeActivity is created.
      * Sets the layout, the default generation algorithm,
@@ -62,6 +67,16 @@ public class AMazeActivity extends AppCompatActivity {
         skillLevelInt=getSkillLevel();
         hasRooms=getRooms();
     }
+    @Override
+    protected void onPause() {
+        Log.v("AMazeActivity", "In onPause");
+        setUpPreferences();
+        super.onPause();
+    }
+    private void determineSeed() {
+        Random random = new Random();
+        seed = random.nextInt();
+    }
     /**
      * Method called with explore button is selected.
      * Toast message and log.v output shown when button selected.
@@ -79,6 +94,9 @@ public class AMazeActivity extends AppCompatActivity {
         intent.putExtra("Skill level",skillLevelInt);
         intent.putExtra("Rooms", hasRooms);
         intent.putExtra("Maze gen algorithm",mazeGenAlgorithm);
+        determineSeed();
+        intent.putExtra("Seed", seed);
+    //    setUpPreferences();
         startActivity(intent);
     }
     /**
@@ -92,14 +110,35 @@ public class AMazeActivity extends AppCompatActivity {
      * @param view
      */
     public void revisitMaze(View view) {
-        Toast.makeText(getBaseContext(), "Revisiting maze.", LENGTH_LONG).show();
+    //    Toast.makeText(getBaseContext(), "Revisiting maze.", LENGTH_LONG).show();
         Log.v("AMazeActivity", "Revisit button selected. Revisiting maze.");
         Intent intent = new Intent(this, GeneratingActivity.class);
+        getFromPreferences();
         intent.putExtra("Skill level",skillLevelInt);
         intent.putExtra("Rooms", hasRooms);
         intent.putExtra("Maze gen algorithm",mazeGenAlgorithm);
+        intent.putExtra("Seed", seed);
+    //    setUpPreferences();
         startActivity(intent);
     }
+    private void setUpPreferences() {
+        Log.v("AMazeActivity", "In setUpPreferences");
+        SharedPreferences sharedPref = this.getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("Seed", seed);
+        editor.putBoolean("Rooms", hasRooms);
+        editor.putInt("Skill level", skillLevelInt);
+        editor.putString("Maze gen algorithm", mazeGenAlgorithm);
+        editor.apply();
+    }
+    private void getFromPreferences() {
+        SharedPreferences sharedPref = this.getPreferences(MODE_PRIVATE);
+        seed = sharedPref.getInt("Seed", 13);
+        hasRooms = sharedPref.getBoolean("Rooms", true);
+        skillLevelInt = sharedPref.getInt("Skill level", 0);
+        mazeGenAlgorithm = sharedPref.getString("Maze gen algorithm", "DFS");
+    }
+
     /**
      * Starts the onSeekBarChangeListener for skill level seekbar.
      * When seek bar is released/set, puts toast message and log.v output

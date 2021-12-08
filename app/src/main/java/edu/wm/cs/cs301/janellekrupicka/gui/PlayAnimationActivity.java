@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,6 +45,9 @@ public class PlayAnimationActivity extends AppCompatActivity {
     private StatePlaying statePlaying;
     private int skillLevel;
     private int shortestPath;
+    private Handler aniHandler = new Handler();
+    private Wizard wizard;
+    private Robot robot;
     /**
      * Sets up layout for activity.
      * Gets extras from intent that sent to this activity.
@@ -72,17 +76,21 @@ public class PlayAnimationActivity extends AppCompatActivity {
         startAnimation();
     }
     public void moveToNextActivity() {
+    //    updateAnimation.join();
+        Log.v("PlayAnimationActivity", "about to remove callbacks");
+        aniHandler.removeCallbacks(updateAnimation);
         Intent intent = new Intent(this, WinningActivity.class);
         // will need for be changed so the values are no longer hard coded
-        intent.putExtra("Path length", 0); // will get from controller
+        intent.putExtra("Path length", robot.getOdometerReading()); // will get from controller
         intent.putExtra("Shortest path length", shortestPath); // will get from controller
-        intent.putExtra("Energy consumption", 0); // will get from controller
+        intent.putExtra("Energy consumption", wizard.getEnergyConsumption()); // will get from controller
         startActivity(intent);
+        finish();
     }
     private void startAnimation() {
         if(driverType.equals("Wizard")) {
-            Wizard wizard = new Wizard();
-            ReliableRobot robot = new ReliableRobot();
+            wizard = new Wizard();
+            robot = new ReliableRobot();
             robot.setStatePlaying(statePlaying);
             DistanceSensor forward  = new ReliableSensor();
             forward.setSensorDirection(Robot.Direction.FORWARD);
@@ -99,12 +107,31 @@ public class PlayAnimationActivity extends AppCompatActivity {
             wizard.setRobot(robot);
             wizard.setMaze(maze);
             try {
-                wizard.drive2Exit();
+                wizard.drive1Step2Exit();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+    //        aniHandler.removeCallbacks(updateAnimation);
+            aniHandler.postDelayed(updateAnimation, 100);
+    //        try {
+    //            robot.move(1);
+    //        } catch (Exception e) {
+    //            e.printStackTrace();
+    //        }
+
         }
     }
+    private Runnable updateAnimation = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                wizard.drive1Step2Exit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            aniHandler.postDelayed(this, 100);
+        }
+    };
     /**
      * Method called when Go2Winning is selected.
      * Creates intent to to go to WinningActivity.

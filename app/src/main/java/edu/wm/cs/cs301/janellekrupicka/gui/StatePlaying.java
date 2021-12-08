@@ -246,7 +246,7 @@ public class StatePlaying extends DefaultState {
      * Draws the current content on panel to show it on screen.
      */
     protected void draw() {
-        Log.v("StatePlaying", "In draw");
+    //    Log.v("StatePlaying", "In draw");
     	if (panel == null) {
     		printWarning();
     		return;

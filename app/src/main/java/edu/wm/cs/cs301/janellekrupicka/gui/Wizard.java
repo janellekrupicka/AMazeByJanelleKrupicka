@@ -3,6 +3,8 @@
  */
 package edu.wm.cs.cs301.janellekrupicka.gui;
 
+import android.util.Log;
+
 import edu.wm.cs.cs301.janellekrupicka.generation.CardinalDirection;
 import edu.wm.cs.cs301.janellekrupicka.generation.Maze;
 import edu.wm.cs.cs301.janellekrupicka.gui.Robot.Turn;
@@ -159,7 +161,7 @@ public class Wizard implements RobotDriver {
 			if(robot.hasStopped()) throw new Exception("Robot has stopped.");	
 		}
 		if(robot.isAtExit()) {
-			System.out.println("Is at exit correctly");
+			Log.v("Wizard","Is at exit correctly");
 			if(!robot.canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)) {
 				if(robot.canSeeThroughTheExitIntoEternity(Robot.Direction.LEFT)) {
 					robot.rotate(Turn.LEFT);
@@ -175,6 +177,9 @@ public class Wizard implements RobotDriver {
 					robot.rotate(Turn.AROUND);
 					if(robot.hasStopped()) throw new Exception("Robot has stopped.");
 				}
+			}
+			if(robot.canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)) {
+				robot.move(1);
 			}
 		}
 		

@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.amazebyjanellekrupicka.R;
 
+import java.util.Random;
+
 import edu.wm.cs.cs301.janellekrupicka.generation.Factory;
 import edu.wm.cs.cs301.janellekrupicka.generation.Maze;
 import edu.wm.cs.cs301.janellekrupicka.generation.MazeFactory;
@@ -48,6 +50,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
     private int seed;
     private int percentdone;
     private Factory factory;
+    private boolean deterministic = false;
     /**
      * Loading maze progress.
      */
@@ -89,6 +92,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
         Intent intent = getIntent();
         skillLevel = intent.getIntExtra("Skill level", 0);
         perfect = !intent.getBooleanExtra("Rooms", true);
+        seed = intent.getIntExtra("Seed", 13);
         builderFromString(intent.getStringExtra("Maze gen algorithm"));
         //  mazeGenAlgorithm=intent.getStringExtra("Maze gen algorithm");
         // set default robotType and start onItemSelectedListener
@@ -148,8 +152,13 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
     }
     private void buildMazeConfig() {
         factory = new MazeFactory();
-        seed = 13;
+    //    seed = 13;
         percentdone = 0;
+    //    if (!deterministic) {
+    //        Random random = new Random();
+    //        seed = random.nextInt();
+    //        Log.v("GeneratingActivity", "Seed is "+seed);
+    //    }
         factory.order(this);
     }
     /**
