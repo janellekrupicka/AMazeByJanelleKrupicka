@@ -48,6 +48,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
     private Handler aniHandler = new Handler();
     private Wizard wizard;
     private Robot robot;
+    private int delayTime;
     /**
      * Sets up layout for activity.
      * Gets extras from intent that sent to this activity.
@@ -63,6 +64,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
         statePlaying.setActivityAnimated(this);
         Log.v("PlayAnimationActivity", "Set activity to animated");
         Intent intent = getIntent();
+        delayTime = 100;
         driverType=intent.getStringExtra("Driver type");
         robotType=intent.getStringExtra("Robot type");
         skillLevel = intent.getIntExtra("Skill level", 0);
@@ -106,12 +108,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
             robot.addDistanceSensor(backward, Robot.Direction.BACKWARD);
             wizard.setRobot(robot);
             wizard.setMaze(maze);
-            try {
-                wizard.drive1Step2Exit();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-    //        aniHandler.removeCallbacks(updateAnimation);
+                //        aniHandler.removeCallbacks(updateAnimation);
             aniHandler.postDelayed(updateAnimation, 100);
     //        try {
     //            robot.move(1);
@@ -127,9 +124,10 @@ public class PlayAnimationActivity extends AppCompatActivity {
             try {
                 wizard.drive1Step2Exit();
             } catch (Exception e) {
-                e.printStackTrace();
+            //    e.printStackTrace();
+                return;
             }
-            aniHandler.postDelayed(this, 100);
+            aniHandler.postDelayed(this, delayTime);
         }
     };
     /**
@@ -169,6 +167,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
      * @param view
      */
     public void increaseMapScale(View view) {
+        statePlaying.keyDown(Constants.UserInput.ZOOMIN, skillLevel);
         Toast.makeText(getBaseContext(), "Map scale increased", Toast.LENGTH_SHORT).show();
         Log.v("PlayAnimationActivity", "Map scale increased");
     }
@@ -179,6 +178,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
      * @param view
      */
     public void decreaseMapScale(View view) {
+        statePlaying.keyDown(Constants.UserInput.ZOOMOUT, skillLevel);
         Toast.makeText(getBaseContext(), "Map scale decreased", Toast.LENGTH_SHORT).show();
         Log.v("PlayAnimationActivity", "Map scale decreased");
     }
@@ -202,26 +202,26 @@ public class PlayAnimationActivity extends AppCompatActivity {
         Toast.makeText(getBaseContext(), "Animation paused", Toast.LENGTH_SHORT).show();
         Log.v("PlayAnimationActivity", "Animation paused");
     }
-    public void showMap(View view) {
-        Log.v("PlayManuallyActivity", "Show map turned on/off");
+//    public void showMap(View view) {
+     //   Log.v("PlayManuallyActivity", "Show map turned on/off");
     //    statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
-    }
+//    }
     /**
      * Starts onCheckedChangeListener for show solution toggle button.
      * Will show solution when is checked, currently just shows
      * toast and log.v output when toggle is selected.
      */
-    public void showSolution(View view) {
+//    public void showSolution(View view) {
     //    statePlaying.keyDown(Constants.UserInput.TOGGLESOLUTION, skillLevel);
         // Toast.makeText(getBaseContext(), "Showing solution", Toast.LENGTH_SHORT).show();
-        Log.v("PlayManuallyActivity", "Show map turned on/off");
+    //    Log.v("PlayManuallyActivity", "Show map turned on/off");
 
-    }
-    public void showVisibleWalls(View view) {
+  //  }
+ //   public void showVisibleWalls(View view) {
     //    statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
         //    Toast.makeText(getBaseContext(), "Showing visible walls", Toast.LENGTH_SHORT).show();
-        Log.v("PlayManuallyActivity", "Show visible walls turned on/oof");
-    }
+   //     Log.v("PlayManuallyActivity", "Show visible walls turned on/oof");
+  //  }
     /**
      * Method to change sensor indicator color based on whether
      * sensor is operational. (Not yet used, will collaborate with robot).
@@ -263,12 +263,14 @@ public class PlayAnimationActivity extends AppCompatActivity {
         showMap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                if(isChecked) {
+                   statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
                    Toast.makeText(getBaseContext(), "Showing map", Toast.LENGTH_SHORT).show();
                    Log.v("PlayAnimationActivity", "Show map turned on");
                }
                if(!isChecked) {
-                Toast.makeText(getBaseContext(), "Not showing map", Toast.LENGTH_SHORT).show();
-                Log.v("PlayAnimationActivity", "Show map turned off");
+                   statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
+                    Toast.makeText(getBaseContext(), "Not showing map", Toast.LENGTH_SHORT).show();
+                    Log.v("PlayAnimationActivity", "Show map turned off");
                }
             }
         });
@@ -290,6 +292,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
             }
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                delayTime = animationSpeed.getProgress();
                 Toast.makeText(getBaseContext(), "Animation speed: "+animationSpeed.getProgress(), Toast.LENGTH_SHORT).show();
                 Log.v("PlayAnimationActivity", "Animation speed selected: "+animationSpeed.getProgress());
             }

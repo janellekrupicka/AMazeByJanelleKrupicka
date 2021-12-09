@@ -158,7 +158,8 @@ public class Wizard implements RobotDriver {
 			if(robot.hasStopped()) throw new Exception("Robot has stopped.");
 			
 			robot.move(1);
-			if(robot.hasStopped()) throw new Exception("Robot has stopped.");	
+			Log.v("Wizard", "battery is "+robot.getBatteryLevel());
+		//	if(robot.hasStopped()) throw new Exception("Robot has stopped.");
 		}
 		if(robot.isAtExit()) {
 			Log.v("Wizard","Is at exit correctly");
@@ -180,11 +181,13 @@ public class Wizard implements RobotDriver {
 			}
 			if(robot.canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)) {
 				robot.move(1);
+				return false;
 			}
 		}
 		
 		assert isAdjacent(curPosition, robot.getCurrentPosition());
-		return isAdjacent(curPosition, robot.getCurrentPosition());
+	//	return isAdjacent(curPosition, robot.getCurrentPosition());
+		return true;
 		// else if currentDirection != directionToNeighbor:
 		//		if (cur=west and neigh=north) or (cur=north and neigh=east)
 		//			or (cur=east and neigh=south) or (cur=south and neigh=west):

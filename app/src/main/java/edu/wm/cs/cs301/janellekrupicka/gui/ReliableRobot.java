@@ -298,11 +298,11 @@ public class ReliableRobot implements Robot {
 			else {
 				// if robot has enough energy and isn't running into a wall,
 				// move forward
+				odometer++;
 				statePlaying.keyDown(UserInput.UP, 0);
 				// update battery level
 				batteryLevel[0] = batteryLevel[0] - getEnergyForStepForward() + 1;
 				// robot travels one block, so odometer increases by 1
-				odometer++;
 			}
 	}
 	/**
