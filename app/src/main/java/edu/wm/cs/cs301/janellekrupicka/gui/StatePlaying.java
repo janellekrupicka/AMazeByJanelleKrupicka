@@ -459,7 +459,12 @@ public class StatePlaying extends DefaultState {
     			mazeConfig.hasWall(px, py, getCurrentDirection().oppositeDirection().rotateClockwise()) &&
     			mazeConfig.hasWall(px, py, getCurrentDirection().rotateClockwise()));
     }
-    
+    public void putAtExit() {
+        int[] exit = mazeConfig.getExitPosition();
+        px = exit[0];
+        py = exit[1];
+        Log.v("StatePlaying", "Exit position: ("+px+", "+py+")");
+    }
     /////////////////////// Methods for debugging ////////////////////////////////
     /*
     private void dbg(String str) {

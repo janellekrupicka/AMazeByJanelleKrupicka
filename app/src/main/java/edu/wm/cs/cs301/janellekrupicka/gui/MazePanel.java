@@ -25,7 +25,7 @@ public class MazePanel extends View implements P5PanelF21 {
     private static Canvas canvasNotes;
     private static Paint paintTest;
     private static int color;
-    private static final int WIDTH = 1200;
+    private static final int WIDTH = 1000;
     public MazePanel(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();

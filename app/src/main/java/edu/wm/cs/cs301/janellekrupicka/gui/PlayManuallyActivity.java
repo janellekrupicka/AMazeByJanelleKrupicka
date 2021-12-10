@@ -54,9 +54,11 @@ public class PlayManuallyActivity extends AppCompatActivity {
         skillLevel = intent.getIntExtra("Skill level", 0);
         pathLength = 0;
         maze=MazeSingleton.getInstance().getMaze();
+    //    MazeSingleton.getInstance().setMaze(null);
         MazePanel mazePanel = findViewById(R.id.maze_panel);
         statePlaying.start(mazePanel);
         shortestPath = statePlaying.getDistanceToExit();
+    //    statePlaying.putAtExit();
     //    mazePanel.commit();
     }
     public void setStatePlaying(StatePlaying statePlaying) {
@@ -90,7 +92,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
      */
     public void increaseMapScale(View view) {
         statePlaying.keyDown(Constants.UserInput.ZOOMIN, skillLevel);
-        Toast.makeText(getBaseContext(), "Map scale increased", Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(getBaseContext(), "Map scale increased", Toast.LENGTH_SHORT).show();
         Log.v("PlayManuallyActivity", "Map scale increase selected");
     }
     /**
@@ -101,7 +103,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
      */
     public void decreaseMapScale(View view) {
         statePlaying.keyDown(Constants.UserInput.ZOOMOUT, skillLevel);
-        Toast.makeText(getBaseContext(), "Map scale decreased", Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(getBaseContext(), "Map scale decreased", Toast.LENGTH_SHORT).show();
         Log.v("PlayManuallyActivity", "Map scale decrease selected");
     }
     /**
@@ -113,7 +115,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
     public void moveForward(View view) {
         statePlaying.keyDown(Constants.UserInput.UP, skillLevel);
         pathLength++;
-        Toast.makeText(getBaseContext(), "Move forward", Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(getBaseContext(), "Move forward", Toast.LENGTH_SHORT).show();
         Log.v("PlayManuallyActivity", "Forward button selected");
     }
     /**
@@ -124,7 +126,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
      */
     public void turnLeft(View view) {
         statePlaying.keyDown(Constants.UserInput.LEFT, skillLevel);
-        Toast.makeText(getBaseContext(), "Turn left", Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(getBaseContext(), "Turn left", Toast.LENGTH_SHORT).show();
         Log.v("PlayManuallyActivity", "Left button selected");
     }
     /**
@@ -135,7 +137,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
      */
     public void turnRight(View view) {
         statePlaying.keyDown(Constants.UserInput.RIGHT, skillLevel);
-        Toast.makeText(getBaseContext(), "Turn right", Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(getBaseContext(), "Turn right", Toast.LENGTH_SHORT).show();
         Log.v("PlayManuallyActivity", "Right button selected");
     }
     /**

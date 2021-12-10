@@ -126,41 +126,8 @@ public class Wizard implements RobotDriver {
 		int[] curPosition = robot.getCurrentPosition();
 		int[] neighPosition =  mazeUsed.getNeighborCloserToExit(curPosition[0], curPosition[1]);
 		CardinalDirection curDir = robot.getCurrentDirection();
-
-		CardinalDirection neighDir = determineNeighborDirection(curPosition, neighPosition);
-		if(curDir==neighDir) robot.move(1);
-		if(robot.hasStopped()) throw new Exception("Robot has stopped.");
-		// if currentDirection == directionToNeighbor: 
-		// 		robot move 1
-		
-		else if(curDir!=neighDir) {
-			if((curDir==CardinalDirection.West && neighDir==CardinalDirection.North)
-				|| (curDir==CardinalDirection.North && neighDir==CardinalDirection.East)
-				|| (curDir==CardinalDirection.East && neighDir==CardinalDirection.South)
-				|| (curDir==CardinalDirection.South && neighDir==CardinalDirection.West)) {
-				
-				robot.rotate(Turn.LEFT);
-			}
-			if((curDir==CardinalDirection.West && neighDir==CardinalDirection.South)
-				|| (curDir==CardinalDirection.South && neighDir==CardinalDirection.East)
-				|| (curDir==CardinalDirection.East && neighDir==CardinalDirection.North)
-				|| (curDir==CardinalDirection.North && neighDir==CardinalDirection.West)) {
-					
-				robot.rotate(Turn.RIGHT);
-			}
-			if((curDir==CardinalDirection.West && neighDir==CardinalDirection.East)
-					|| (curDir==CardinalDirection.South && neighDir==CardinalDirection.North)
-					|| (curDir==CardinalDirection.East && neighDir==CardinalDirection.West)
-					|| (curDir==CardinalDirection.North && neighDir==CardinalDirection.South)) {
-						
-					robot.rotate(Turn.AROUND);
-				}
-			if(robot.hasStopped()) throw new Exception("Robot has stopped.");
-			
-			robot.move(1);
-			Log.v("Wizard", "battery is "+robot.getBatteryLevel());
-		//	if(robot.hasStopped()) throw new Exception("Robot has stopped.");
-		}
+		Log.v("Wizard", "Current direction is "+curDir);
+	//	Log.v("Wizard", "Obtained direction references");
 		if(robot.isAtExit()) {
 			Log.v("Wizard","Is at exit correctly");
 			if(!robot.canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)) {
@@ -171,7 +138,7 @@ public class Wizard implements RobotDriver {
 				else if(robot.canSeeThroughTheExitIntoEternity(Robot.Direction.RIGHT)) {
 					robot.rotate(Turn.RIGHT);
 					if(robot.hasStopped()) throw new Exception("Robot has stopped.");
-					
+
 				}
 				else if(robot.canSeeThroughTheExitIntoEternity(Robot.Direction.BACKWARD)) {
 					System.out.println("Can See Exit Correctly");
@@ -184,8 +151,52 @@ public class Wizard implements RobotDriver {
 				return false;
 			}
 		}
+		CardinalDirection neighDir = determineNeighborDirection(curPosition, neighPosition);
+		Log.v("Wizard", "Neighbor direction is "+neighDir);
+		if(curDir==neighDir) {
+			robot.move(1);
+			Log.v("Wizard", "Just moved 1");
+		}
+	//	Log.v("Wizard", "Just moved 1");
+		if(robot.hasStopped()) throw new Exception("Robot has stopped.");
+		// if currentDirection == directionToNeighbor: 
+		// 		robot move 1
 		
-		assert isAdjacent(curPosition, robot.getCurrentPosition());
+		else if(curDir!=neighDir) {
+			Log.v("Wizard", "Robot didn't stop, about to rotate");
+			if((curDir==CardinalDirection.West && neighDir==CardinalDirection.North)
+				|| (curDir==CardinalDirection.North && neighDir==CardinalDirection.East)
+				|| (curDir==CardinalDirection.East && neighDir==CardinalDirection.South)
+				|| (curDir==CardinalDirection.South && neighDir==CardinalDirection.West)) {
+				
+				robot.rotate(Turn.LEFT);
+				Log.v("Wizard", "Robot rotated left");
+			}
+			else if((curDir==CardinalDirection.West && neighDir==CardinalDirection.South)
+				|| (curDir==CardinalDirection.South && neighDir==CardinalDirection.East)
+				|| (curDir==CardinalDirection.East && neighDir==CardinalDirection.North)
+				|| (curDir==CardinalDirection.North && neighDir==CardinalDirection.West)) {
+					
+				robot.rotate(Turn.RIGHT);
+				Log.v("Wizard", "Robot rotated right");
+			}
+			else if((curDir==CardinalDirection.West && neighDir==CardinalDirection.East)
+					|| (curDir==CardinalDirection.South && neighDir==CardinalDirection.North)
+					|| (curDir==CardinalDirection.East && neighDir==CardinalDirection.West)
+					|| (curDir==CardinalDirection.North && neighDir==CardinalDirection.South)) {
+						
+					robot.rotate(Turn.AROUND);
+				Log.v("Wizard", "Robot rotated around");
+				}
+			if(robot.hasStopped()) throw new Exception("Robot has stopped.");
+			
+			robot.move(1);
+			Log.v("Wizard", "Robot moved one, battery is "+robot.getBatteryLevel());
+		//	if(robot.hasStopped()) throw new Exception("Robot has stopped.");
+		}
+
+		
+	//	assert isAdjacent(curPosition, robot.getCurrentPosition());
 	//	return isAdjacent(curPosition, robot.getCurrentPosition());
 		return true;
 		// else if currentDirection != directionToNeighbor:

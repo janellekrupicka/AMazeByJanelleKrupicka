@@ -3,6 +3,8 @@
  */
 package edu.wm.cs.cs301.janellekrupicka.gui;
 
+import android.util.Log;
+
 import edu.wm.cs.cs301.janellekrupicka.generation.CardinalDirection;
 import edu.wm.cs.cs301.janellekrupicka.generation.Maze;
 import edu.wm.cs.cs301.janellekrupicka.gui.Constants.UserInput;
@@ -181,7 +183,10 @@ public class ReliableRobot implements Robot {
 		batteryLevel[0] = level;
 		// if battery level is 0, robot has run out of energy
 		// robot has stopped
-		if(batteryLevel[0]==0) stopped = true;
+		if(batteryLevel[0]==0) {
+			stopped = true;
+			Log.v("ReliableRobot", "Set stopped to true: 186");
+		}
 	}
 	/**
 	 * Returns the energy for full rotation of robot: 12.
@@ -229,7 +234,10 @@ public class ReliableRobot implements Robot {
 					rotate90Degrees(Robot.Turn.LEFT);
 				}
 				// if not enough energy, robot has stopped
-				else stopped = true;
+				else {
+					stopped = true;
+					Log.v("ReliableRobot", "Set stopped to true: 239");
+				}
 				break;
 			case RIGHT:
 				// turn robot 90 degrees right if enough energy
@@ -237,7 +245,10 @@ public class ReliableRobot implements Robot {
 					rotate90Degrees(Robot.Turn.RIGHT);
 				}
 				// if not enough energy, robot has stopped
-				else stopped = true;
+				else {
+					stopped = true;
+					Log.v("ReliableRobot", "Set stopped to true: 250");
+				}
 				break;
 			case AROUND:
 				// turn robot 90 degrees right twice (180 degrees)
@@ -247,7 +258,10 @@ public class ReliableRobot implements Robot {
 					rotate90Degrees(Robot.Turn.RIGHT);
 				}
 				// if not enough energy, robot has stopped
-				else stopped = true;
+				else {
+					stopped = true;
+					Log.v("ReliableRobot", "Set stopped to true: 263");
+				}
 				break;	
 		}
 	}
@@ -282,18 +296,22 @@ public class ReliableRobot implements Robot {
 	@Override
 	public void move(int distance) throws 
 		IllegalArgumentException, UnsupportedOperationException, Exception {
+		Log.v("ReliableRobot", "Distance to obstacle: "+distanceToObstacle(Direction.FORWARD));
 		if(distance<0) throw new IllegalArgumentException();
 		// if distance < 0 throws IllegalArgumentException
 		for(int step=0; step<distance; step++)
 		// for each block in distance:
 			if(batteryLevel[0] - getEnergyForStepForward() < 1) {
 				stopped = true;
+				Log.v("ReliableRobot", "Set stopped to true: 305");
 			}
 			// sensing using distanceToObstacle takes 1 energy
 			// account for this by adding 1 to the battery level 
 			// so that move only takes 6 energy and not 7
 			else if(distanceToObstacle(Robot.Direction.FORWARD) < 1) {
+				Log.v("ReliableRobot", "Direction forward: "+ getCurrentDirection());
 				stopped = true;
+				Log.v("ReliableRobot", "Set stopped to true: 312");
 			}
 			else {
 				// if robot has enough energy and isn't running into a wall,
@@ -305,6 +323,10 @@ public class ReliableRobot implements Robot {
 				// robot travels one block, so odometer increases by 1
 			}
 	}
+//	private CardinalDirection forwardAdjustment;
+//	private void adjustFowardDirection() {
+
+//	}
 	/**
 	 * Jumps robot over wall in forward direction.
 	 * Determines if the position to jump to is a valid position, 
@@ -340,6 +362,7 @@ public class ReliableRobot implements Robot {
 		// if it isn't a valid position, the robot is stopped
 		if(!statePlaying.getMazeConfiguration().isValidPosition(positionToJumpTo[0], positionToJumpTo[1])) {
 			stopped = true;
+			Log.v("ReliableRobot", "Set stopped to true: 359");
 		}
 		// if the robot doesn't have enough energy to jump, the robot stops
 		if(batteryLevel[0]-ENERGY_FOR_JUMP<1) stopped = true;
@@ -388,6 +411,7 @@ public class ReliableRobot implements Robot {
 	@Override
 	public int distanceToObstacle(Direction direction) throws 
 		UnsupportedOperationException, Exception {
+		Log.v("ReliableRobot", "Current direction:"+statePlaying.getCurrentDirection());
 		// ReliableSensor is always operational
 		// check that there is a sensor in the given direction
 		boolean sensorExistsOperational = checkIfSensorIsOperational(direction);
@@ -401,7 +425,8 @@ public class ReliableRobot implements Robot {
 				return findRightSensorDistance();
 			case FORWARD:
 				// if direction forward, same cardinal direction as current direction
-				return sensorForward.distanceToObstacle(getCurrentPosition(), statePlaying.getCurrentDirection(), batteryLevel);
+				return findForwardSensorDistance();
+			//	return sensorForward.distanceToObstacle(getCurrentPosition(), statePlaying.getCurrentDirection(), batteryLevel);
 			case BACKWARD:
 				return findBackwardSensorDistance();
 		}
@@ -442,15 +467,19 @@ public class ReliableRobot implements Robot {
 		switch(statePlaying.getCurrentDirection()) {
 		case North:
 			// if current direction is north, left is east
+		//	return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.South, batteryLevel);
 			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.East, batteryLevel);
 		case East:
 			// if current direction is east, left is south
+		//	return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.West, batteryLevel);
 			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.South, batteryLevel);
 		case South:
 			// if current direction is south, left is west
+		//	return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.North, batteryLevel);
 			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.West, batteryLevel);
 		case West:
 			// if current direction is west, left is north
+		//	return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.East, batteryLevel);
 			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.North, batteryLevel);
 		}
 		return 0;
@@ -466,16 +495,20 @@ public class ReliableRobot implements Robot {
 		switch(statePlaying.getCurrentDirection()) {
 		case North:
 			// if current direction is north, right is west
-			return sensorRight.distanceToObstacle(getCurrentPosition(), CardinalDirection.West, batteryLevel);
+		//	return sensorRight.distanceToObstacle(getCurrentPosition(), CardinalDirection.North, batteryLevel);
+			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.West, batteryLevel);
 		case East:
 			// if current direction is east, right is north
-			return sensorRight.distanceToObstacle(getCurrentPosition(), CardinalDirection.North, batteryLevel);
+		//	return sensorRight.distanceToObstacle(getCurrentPosition(), CardinalDirection.East, batteryLevel);
+			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.North, batteryLevel);
 		case South:
 			// if current direction is south, right is east
-			return sensorRight.distanceToObstacle(getCurrentPosition(), CardinalDirection.East, batteryLevel);
+		//	return sensorRight.distanceToObstacle(getCurrentPosition(), CardinalDirection.South, batteryLevel);
+			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.East, batteryLevel);
 		case West:
 			// if current direction is west, right is south
-			return sensorRight.distanceToObstacle(getCurrentPosition(), CardinalDirection.South, batteryLevel);
+		//	return sensorRight.distanceToObstacle(getCurrentPosition(), CardinalDirection.West, batteryLevel);
+			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.South, batteryLevel);
 		}
 		return 0;
 	}
@@ -490,16 +523,33 @@ public class ReliableRobot implements Robot {
 		switch(statePlaying.getCurrentDirection()) {
 		case North:
 			// if current direction is north, backward is south
-			return sensorBackward.distanceToObstacle(getCurrentPosition(), CardinalDirection.South, batteryLevel);
+		//	return sensorBackward.distanceToObstacle(getCurrentPosition(), CardinalDirection.West, batteryLevel);
+			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.South, batteryLevel);
 		case East:
 			// if current direction is east, backward is west
-			return sensorBackward.distanceToObstacle(getCurrentPosition(), CardinalDirection.West, batteryLevel);
+		//	return sensorBackward.distanceToObstacle(getCurrentPosition(), CardinalDirection.North, batteryLevel);
+			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.West, batteryLevel);
 		case South:
 			// if current direction is south, backward is north
-			return sensorBackward.distanceToObstacle(getCurrentPosition(), CardinalDirection.North, batteryLevel);
+		//	return sensorBackward.distanceToObstacle(getCurrentPosition(), CardinalDirection.East, batteryLevel);
+			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.North, batteryLevel);
 		case West:
 			// if current direction is west, backward is east
-			return sensorBackward.distanceToObstacle(getCurrentPosition(), CardinalDirection.East, batteryLevel);
+		//	return sensorBackward.distanceToObstacle(getCurrentPosition(), CardinalDirection.South, batteryLevel);
+			return sensorLeft.distanceToObstacle(getCurrentPosition(), CardinalDirection.East, batteryLevel);
+		}
+		return 0;
+	}
+	private int findForwardSensorDistance() throws Exception {
+		switch(statePlaying.getCurrentDirection()) {
+			case North:
+				return sensorForward.distanceToObstacle(getCurrentPosition(), CardinalDirection.North, batteryLevel);
+			case East:
+				return sensorForward.distanceToObstacle(getCurrentPosition(), CardinalDirection.East, batteryLevel);
+			case South:
+				return sensorForward.distanceToObstacle(getCurrentPosition(), CardinalDirection.South, batteryLevel);
+			case West:
+				return sensorForward.distanceToObstacle(getCurrentPosition(), CardinalDirection.West, batteryLevel);
 		}
 		return 0;
 	}
@@ -511,6 +561,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public boolean canSeeThroughTheExitIntoEternity(Direction direction) throws UnsupportedOperationException {
+		Log.v("ReliableRobot", "Inside canSeeThroughTheExit..");
 		int distance;
 		try {
 			// sensor will return MAX_INT if can see to exit

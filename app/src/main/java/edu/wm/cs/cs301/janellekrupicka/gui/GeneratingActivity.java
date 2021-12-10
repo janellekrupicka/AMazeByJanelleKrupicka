@@ -91,6 +91,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
         // get extras from AMazeActivity
         Intent intent = getIntent();
         skillLevel = intent.getIntExtra("Skill level", 0);
+        Log.v("GeneratingActivity", "Skill level check:"+skillLevel);
         perfect = !intent.getBooleanExtra("Rooms", true);
         seed = intent.getIntExtra("Seed", 13);
         builderFromString(intent.getStringExtra("Maze gen algorithm"));
@@ -111,12 +112,12 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
         String selectedPlay = play_type.getItemAtPosition(play_type.getSelectedItemPosition()).toString();
         if (selectedPlay.equals("None selected")) {
             // tell user to select a driver
-            Toast.makeText(getBaseContext(), "Select driver to continue.", LENGTH_LONG).show();
+        //    Toast.makeText(getBaseContext(), "Select driver to continue.", LENGTH_LONG).show();
             playTypeSpinnerSelection();
         }
         else if (selectedPlay.equals("Manual")) {
             driverType = "Manual";
-            Toast.makeText(getBaseContext(), "Playing manually.", Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(getBaseContext(), "Playing manually.", Toast.LENGTH_SHORT).show();
             Log.v("GeneratingActivity", "Playing manually.");
             // go to play manually
             Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayManuallyActivity.class);
@@ -126,7 +127,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
         }
         else if (selectedPlay.equals("Wizard")) {
             driverType = "Wizard";
-            Toast.makeText(getBaseContext(), "Playing with Wizard.", Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(getBaseContext(), "Playing with Wizard.", Toast.LENGTH_SHORT).show();
             Log.v("GeneratingActivity", "Playing with Wizard.");
             // go to play animation
             Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
@@ -136,7 +137,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
         }
         else if (selectedPlay.equals("Wallfollower")) {
             driverType = "Wallfollower";
-            Toast.makeText(getBaseContext(), "Playing with Wallfollower.", Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(getBaseContext(), "Playing with Wallfollower.", Toast.LENGTH_SHORT).show();
             Log.v("GeneratingActivity", "Playing with Wallfollower.");
             // go to play animation
             Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
@@ -183,7 +184,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                 // in position one is "Manual"
                 if (l == 1) {
                     driverType = "Manual";
-                    Toast.makeText(getBaseContext(), "Playing manually.", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(getBaseContext(), "Playing manually.", Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Playing manually.");
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayManuallyActivity.class);
                     setExtrasForIntent(intent);
@@ -193,7 +194,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                 // in position 2 is "Wizard"
                 if (l == 2) {
                     driverType = "Wizard";
-                    Toast.makeText(getBaseContext(), "Playing with Wizard.", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(getBaseContext(), "Playing with Wizard.", Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Playing with Wizard.");
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
                     setExtrasForIntent(intent);
@@ -203,7 +204,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                 // in position 3 is "Wallfollower"
                 if (l == 3) {
                     driverType = "Wallfollower";
-                    Toast.makeText(getBaseContext(), "Playing with Wallfollower.", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(getBaseContext(), "Playing with Wallfollower.", Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Playing with Wallfollower.");
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
                     setExtrasForIntent(intent);
@@ -237,13 +238,13 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                 // in position 0: "Premium"
                 if (l == 0) {
                     robotType = "Premium";
-                    Toast.makeText(getBaseContext(), "Premium robot selected.", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(getBaseContext(), "Premium robot selected.", Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Premium robot selected.");
                 }
                 // in position 1: "Mediocre"
                 if (l == 1) {
                     robotType = "Mediocre";
-                    Toast.makeText(getBaseContext(), "Mediocre robot selected.", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(getBaseContext(), "Mediocre robot selected.", Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Mediocre robot selected.");
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayManuallyActivity.class);
                     setExtrasForIntent(intent);
@@ -252,7 +253,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                 // in position 2: "Soso"
                 if (l == 2) {
                     robotType = "Soso";
-                    Toast.makeText(getBaseContext(), "Soso robot selected.",Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(getBaseContext(), "Soso robot selected.",Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Soso robot selected.");
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
                     setExtrasForIntent(intent);
@@ -261,7 +262,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                 // in position 3: "Shaky"
                 if (l == 3) {
                     robotType = "Shaky";
-                    Toast.makeText(getBaseContext(), "Shaky robot selected.", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(getBaseContext(), "Shaky robot selected.", Toast.LENGTH_SHORT).show();
                     Log.v("GeneratingActivity", "Shaky robot selected.");
                     Intent intent = new Intent(GeneratingActivity.this.getBaseContext(), PlayAnimationActivity.class);
                     setExtrasForIntent(intent);
@@ -288,7 +289,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
 
     @Override
     public int getSkillLevel() {
-        return 0;
+        return skillLevel;
     }
 
     @Override
@@ -308,6 +309,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
 
     @Override
     public void deliver(Maze mazeConfig) {
+    //    MazeSingleton.getInstance().setMaze(null);
         MazeSingleton.getInstance().setMaze(mazeConfig);
     }
     @Override

@@ -49,6 +49,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
     private Wizard wizard;
     private Robot robot;
     private int delayTime;
+    private boolean play;
     /**
      * Sets up layout for activity.
      * Gets extras from intent that sent to this activity.
@@ -64,17 +65,19 @@ public class PlayAnimationActivity extends AppCompatActivity {
         statePlaying.setActivityAnimated(this);
         Log.v("PlayAnimationActivity", "Set activity to animated");
         Intent intent = getIntent();
-        delayTime = 100;
+        delayTime = 300;
         driverType=intent.getStringExtra("Driver type");
         robotType=intent.getStringExtra("Robot type");
         skillLevel = intent.getIntExtra("Skill level", 0);
         maze=MazeSingleton.getInstance().getMaze();
+    //    MazeSingleton.getInstance().setMaze(null);
         getAnimationSpeed();
-        showMap();
-        maze=MazeSingleton.getInstance().getMaze();
+    //    showMap();
+    //    maze=MazeSingleton.getInstance().getMaze();
         MazePanel mazePanel = findViewById(R.id.maze_panel);
         statePlaying.start(mazePanel);
         shortestPath = statePlaying.getDistanceToExit();
+        play = true;
         startAnimation();
     }
     public void moveToNextActivity() {
@@ -86,6 +89,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
         intent.putExtra("Path length", robot.getOdometerReading()); // will get from controller
         intent.putExtra("Shortest path length", shortestPath); // will get from controller
         intent.putExtra("Energy consumption", wizard.getEnergyConsumption()); // will get from controller
+        MazeSingleton.getInstance().setMaze(null);
         startActivity(intent);
         finish();
     }
@@ -109,8 +113,16 @@ public class PlayAnimationActivity extends AppCompatActivity {
             wizard.setRobot(robot);
             wizard.setMaze(maze);
                 //        aniHandler.removeCallbacks(updateAnimation);
-            aniHandler.postDelayed(updateAnimation, 100);
-    //        try {
+            aniHandler.postDelayed(updateAnimation, delayTime);
+            MazeSingleton.getInstance().setMaze(null);
+            Log.v("PlayAnimationActivity", "Set maze to null");
+        //    statePlaying.putAtExit();
+        //    try {
+        //        senseAtExit();
+        //    } catch (Exception e) {
+        //        e.printStackTrace();
+        //    }
+            //        try {
     //            robot.move(1);
     //        } catch (Exception e) {
     //            e.printStackTrace();
@@ -121,15 +133,26 @@ public class PlayAnimationActivity extends AppCompatActivity {
     private Runnable updateAnimation = new Runnable() {
         @Override
         public void run() {
+        //    if(play==true) {
+            Log.v("PlayAnimationActivity", "in run");
             try {
                 wizard.drive1Step2Exit();
             } catch (Exception e) {
-            //    e.printStackTrace();
+                e.printStackTrace();
+                MazeSingleton.getInstance().setMaze(null);
                 return;
             }
+        //    }
+            setEnergyLevel(robot.getBatteryLevel());
             aniHandler.postDelayed(this, delayTime);
         }
     };
+    public void showMap(View view) {
+        statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, skillLevel);
+        statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
+    //    Toast.makeText(getBaseContext(), "Showing map", Toast.LENGTH_SHORT).show();
+        Log.v("PlayAnimationActivity", "Show map turned on");
+    }
     /**
      * Method called when Go2Winning is selected.
      * Creates intent to to go to WinningActivity.
@@ -168,7 +191,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
      */
     public void increaseMapScale(View view) {
         statePlaying.keyDown(Constants.UserInput.ZOOMIN, skillLevel);
-        Toast.makeText(getBaseContext(), "Map scale increased", Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(getBaseContext(), "Map scale increased", Toast.LENGTH_SHORT).show();
         Log.v("PlayAnimationActivity", "Map scale increased");
     }
     /**
@@ -179,7 +202,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
      */
     public void decreaseMapScale(View view) {
         statePlaying.keyDown(Constants.UserInput.ZOOMOUT, skillLevel);
-        Toast.makeText(getBaseContext(), "Map scale decreased", Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(getBaseContext(), "Map scale decreased", Toast.LENGTH_SHORT).show();
         Log.v("PlayAnimationActivity", "Map scale decreased");
     }
     /**
@@ -189,7 +212,9 @@ public class PlayAnimationActivity extends AppCompatActivity {
      * @param view
      */
     public void pressPlay(View view) {
-        Toast.makeText(getBaseContext(), "Playing animation", Toast.LENGTH_SHORT).show();
+        aniHandler.postDelayed(updateAnimation, delayTime);
+    //    play = true;
+    //    Toast.makeText(getBaseContext(), "Playing animation", Toast.LENGTH_SHORT).show();
         Log.v("PlayAnimationActivity", "Playing animation");
     }
     /**
@@ -199,7 +224,9 @@ public class PlayAnimationActivity extends AppCompatActivity {
      * @param view
      */
     public void pressPause(View view) {
-        Toast.makeText(getBaseContext(), "Animation paused", Toast.LENGTH_SHORT).show();
+        aniHandler.removeCallbacks(updateAnimation);
+    //    play = false;
+    //    Toast.makeText(getBaseContext(), "Animation paused", Toast.LENGTH_SHORT).show();
         Log.v("PlayAnimationActivity", "Animation paused");
     }
 //    public void showMap(View view) {
@@ -256,25 +283,25 @@ public class PlayAnimationActivity extends AppCompatActivity {
      * Will put a toast message and log.v output when
      * button is turned on or off to show map.
      */
-    private void showMap() {
-        Switch showMap=(Switch) findViewById(R.id.show_map2);
+//    private void showMap() {
+  //      Switch showMap=(Switch) findViewById(R.id.show_map2);
         // code for onCheckedChangeListener from
         // https://stackoverflow.com/questions/11278507/android-widget-switch-on-off-event-listener
-        showMap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-               if(isChecked) {
-                   statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
-                   Toast.makeText(getBaseContext(), "Showing map", Toast.LENGTH_SHORT).show();
-                   Log.v("PlayAnimationActivity", "Show map turned on");
-               }
-               if(!isChecked) {
-                   statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
-                    Toast.makeText(getBaseContext(), "Not showing map", Toast.LENGTH_SHORT).show();
-                    Log.v("PlayAnimationActivity", "Show map turned off");
-               }
-            }
-        });
-    }
+    //    showMap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      //      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        //       if(isChecked) {
+        //           statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
+         //          Toast.makeText(getBaseContext(), "Showing map", Toast.LENGTH_SHORT).show();
+         //          Log.v("PlayAnimationActivity", "Show map turned on");
+         //      }
+         //      if(!isChecked) {
+         //          statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
+         //           Toast.makeText(getBaseContext(), "Not showing map", Toast.LENGTH_SHORT).show();
+         //           Log.v("PlayAnimationActivity", "Show map turned off");
+         //      }
+     //       }
+     //   });
+  //  }
     /**
      * To start onSeekBarChangeListener for animation speed seek bar.
      * When seek bar is adjusted for animation speed, shows
@@ -293,7 +320,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 delayTime = animationSpeed.getProgress();
-                Toast.makeText(getBaseContext(), "Animation speed: "+animationSpeed.getProgress(), Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(getBaseContext(), "Animation speed: "+animationSpeed.getProgress(), Toast.LENGTH_SHORT).show();
                 Log.v("PlayAnimationActivity", "Animation speed selected: "+animationSpeed.getProgress());
             }
         });
@@ -304,8 +331,14 @@ public class PlayAnimationActivity extends AppCompatActivity {
      * That shows the robot's energy level. Will collaborate with robot/controller.
      * @param energy
      */
-    private void setEnergyLevel(int energy) {
+    private void setEnergyLevel(float energy) {
         ProgressBar energyLevel=(ProgressBar) findViewById(R.id.energyBar);
-        energyLevel.setProgress(energy);
+        energyLevel.setProgress((int) energy);
+    }
+    private void senseAtExit() throws Exception {
+        Log.v("PlayAnimationActivity", "Distance forward: "+robot.distanceToObstacle(Robot.Direction.FORWARD));
+        Log.v("PlayAnimationActivity", "Distance backward: "+robot.distanceToObstacle(Robot.Direction.BACKWARD));
+        Log.v("PlayAnimationActivity", "Distance left: "+robot.distanceToObstacle(Robot.Direction.LEFT));
+        Log.v("PlayAnimationActivity", "Distance right: "+robot.distanceToObstacle(Robot.Direction.RIGHT));
     }
 }

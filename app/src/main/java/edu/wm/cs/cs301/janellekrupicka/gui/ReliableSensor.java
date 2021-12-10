@@ -3,6 +3,8 @@
  */
 package edu.wm.cs.cs301.janellekrupicka.gui;
 
+import android.util.Log;
+
 import edu.wm.cs.cs301.janellekrupicka.generation.CardinalDirection;
 import edu.wm.cs.cs301.janellekrupicka.generation.Floorplan;
 import edu.wm.cs.cs301.janellekrupicka.generation.Maze;
@@ -83,7 +85,13 @@ public class ReliableSensor implements DistanceSensor {
 		int distance = 0;
 		powersupply[0] = powersupply[0]-getEnergyConsumptionForSensing();
 		// if there's a wall in that direction, distance is 0 so just return
+	//	if(currentDirection==CardinalDirection.North) currentDirection = CardinalDirection.South;
+	//	if(currentDirection==CardinalDirection.South) currentDirection = CardinalDirection.North;
 		if(floorplan.hasWall(currentPosition[0], currentPosition[1], currentDirection)) {
+		//	Log.v("ReliableSensor", "Position x"+currentPosition[0]);
+		//	Log.v("ReliableSensor", "Position y"+currentPosition[1]);
+		//	Log.v("ReliableSensor", "Current direction is "+currentDirection);
+			Log.v("ReliableSensor", "Inside has wall, about to return 0. Direction: "+currentDirection);
 			return distance;
 		}
 		distance = distanceToObstacleCount(currentPosition, currentDirection, floorplan);
@@ -106,6 +114,7 @@ public class ReliableSensor implements DistanceSensor {
 		int xToChange = currentPosition[0];
 		int yToChange = currentPosition[1];
 		while(!floorplan.hasWall(xToChange, yToChange, currentDirection)) {
+			Log.v("ReliableSensor", "In while loop, doesn't have wall");
 			switch(currentDirection) {
 				// changing x and y depending on the direction
 				// to move to the next cell to check for a wall again
@@ -124,6 +133,7 @@ public class ReliableSensor implements DistanceSensor {
 				break;
 			} 
 			distance++;
+		//	Log.v("ReliableSensor", "Just incremented distance");
 			// if x and y are a position no longer in the maze,
 			// the sensor  traveled through the exit out of the maze.
 			// return max int to track that the robot can see the
@@ -133,6 +143,7 @@ public class ReliableSensor implements DistanceSensor {
 				break;
 			}
 		}
+		Log.v("ReliableSensor", "Direction: "+currentDirection+", Distance: "+distance);
 		return distance;
 	}
 	/**

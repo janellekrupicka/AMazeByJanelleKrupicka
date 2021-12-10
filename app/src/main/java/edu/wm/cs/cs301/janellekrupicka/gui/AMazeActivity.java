@@ -76,6 +76,8 @@ public class AMazeActivity extends AppCompatActivity {
     private void determineSeed() {
         Random random = new Random();
         seed = random.nextInt();
+    //    seed = -1536304652;
+        Log.v("AMazeActivity", "seed is "+seed);
     }
     /**
      * Method called with explore button is selected.
@@ -88,9 +90,10 @@ public class AMazeActivity extends AppCompatActivity {
      * @param view
      */
     public void exploreMaze(View view) {
-        Toast.makeText(getBaseContext(), "Exploring maze.", LENGTH_LONG).show();
+    //    Toast.makeText(getBaseContext(), "Exploring maze.", LENGTH_LONG).show();
         Log.v("AMazeActivity", "Explore button selected. Exploring maze.");
         Intent intent = new Intent(this, GeneratingActivity.class);
+        Log.v("AMazeActivity", "Skill level:"+skillLevelInt);
         intent.putExtra("Skill level",skillLevelInt);
         intent.putExtra("Rooms", hasRooms);
         intent.putExtra("Maze gen algorithm",mazeGenAlgorithm);
@@ -186,12 +189,12 @@ public class AMazeActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     hasRooms = true;
-                    Toast.makeText(getBaseContext(), "Generating maze with rooms", LENGTH_LONG).show();
+                //    Toast.makeText(getBaseContext(), "Generating maze with rooms", LENGTH_LONG).show();
                     Log.v("AMazeActivity", "Generating maze with rooms");
                 }
                 if(!isChecked) {
                     hasRooms = false;
-                    Toast.makeText(getBaseContext(), "Generating maze without rooms", LENGTH_LONG).show();
+                //    Toast.makeText(getBaseContext(), "Generating maze without rooms", LENGTH_LONG).show();
                     Log.v("AMazeActivity", "Generating maze without rooms");
                 }
             }
@@ -219,17 +222,17 @@ public class AMazeActivity extends AppCompatActivity {
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     if(i==0) {
                         mazeGenAlgorithm="DFS";
-                        Toast.makeText(getBaseContext(), "Generating maze with DFS", LENGTH_LONG).show();
+                    //    Toast.makeText(getBaseContext(), "Generating maze with DFS", LENGTH_LONG).show();
                         Log.v("AMazeActivity", "Maze generation algorithm selected: DFS");
                     }
                     if(i==1) {
                         mazeGenAlgorithm="Prim";
-                        Toast.makeText(getBaseContext(), "Generating maze with Prim", LENGTH_LONG).show();
+                    //    Toast.makeText(getBaseContext(), "Generating maze with Prim", LENGTH_LONG).show();
                         Log.v("AMazeActivity", "Maze generation algorithm selected: Prim");
                     }
                     if(i==2) {
                         mazeGenAlgorithm="Boruvka";
-                        Toast.makeText(getBaseContext(), "Generating maze with Boruvka", LENGTH_LONG).show();
+                    //    Toast.makeText(getBaseContext(), "Generating maze with Boruvka", LENGTH_LONG).show();
                         Log.v("AMazeActivity", "Maze generation algorithm selected: Boruvka");
                     }
                 }
