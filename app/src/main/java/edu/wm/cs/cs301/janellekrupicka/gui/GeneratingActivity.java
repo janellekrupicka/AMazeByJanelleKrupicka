@@ -91,7 +91,7 @@ public class GeneratingActivity<mazeFinal> extends AppCompatActivity implements 
         // get extras from AMazeActivity
         Intent intent = getIntent();
         skillLevel = intent.getIntExtra("Skill level", 0);
-        Log.v("GeneratingActivity", "Skill level check:"+skillLevel);
+    //    Log.v("GeneratingActivity", "Skill level check:"+skillLevel);
         perfect = !intent.getBooleanExtra("Rooms", true);
         seed = intent.getIntExtra("Seed", 13);
         builderFromString(intent.getStringExtra("Maze gen algorithm"));
@@ -152,7 +152,7 @@ public class GeneratingActivity<mazeFinal> extends AppCompatActivity implements 
         if(str.equals("Boruvka")) mazeGenAlgorithm = Builder.Boruvka;
     }
     private void buildMazeConfig() {
-        Log.v("GeneratingActivity", "In buildMazeConfig");
+    //    Log.v("GeneratingActivity", "In buildMazeConfig");
         factory = new MazeFactory();
     //    seed = 13;
         percentdone = 0;
@@ -314,7 +314,7 @@ public class GeneratingActivity<mazeFinal> extends AppCompatActivity implements 
     //    MazeSingleton.getInstance().setMaze(null);
         MazeSingleton.getInstance().setMaze(mazeConfig);
     //    mazeFinal = mazeConfig;
-        Log.v("GeneratingActivity", "In deliver");
+    //    Log.v("GeneratingActivity", "In deliver");
     }
     @Override
     public void updateProgress(int percentage) {

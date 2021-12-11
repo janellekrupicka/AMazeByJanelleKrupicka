@@ -185,7 +185,7 @@ public class ReliableRobot implements Robot {
 		// robot has stopped
 		if(batteryLevel[0]==0) {
 			stopped = true;
-			Log.v("ReliableRobot", "Set stopped to true: 186");
+		//	Log.v("ReliableRobot", "Set stopped to true: 186");
 		}
 	}
 	/**
@@ -236,7 +236,7 @@ public class ReliableRobot implements Robot {
 				// if not enough energy, robot has stopped
 				else {
 					stopped = true;
-					Log.v("ReliableRobot", "Set stopped to true: 239");
+				//	Log.v("ReliableRobot", "Set stopped to true: 239");
 				}
 				break;
 			case RIGHT:
@@ -247,7 +247,7 @@ public class ReliableRobot implements Robot {
 				// if not enough energy, robot has stopped
 				else {
 					stopped = true;
-					Log.v("ReliableRobot", "Set stopped to true: 250");
+				//	Log.v("ReliableRobot", "Set stopped to true: 250");
 				}
 				break;
 			case AROUND:
@@ -260,7 +260,7 @@ public class ReliableRobot implements Robot {
 				// if not enough energy, robot has stopped
 				else {
 					stopped = true;
-					Log.v("ReliableRobot", "Set stopped to true: 263");
+				//	Log.v("ReliableRobot", "Set stopped to true: 263");
 				}
 				break;	
 		}
@@ -296,22 +296,22 @@ public class ReliableRobot implements Robot {
 	@Override
 	public void move(int distance) throws 
 		IllegalArgumentException, UnsupportedOperationException, Exception {
-		Log.v("ReliableRobot", "Distance to obstacle: "+distanceToObstacle(Direction.FORWARD));
+	//	Log.v("ReliableRobot", "Distance to obstacle: "+distanceToObstacle(Direction.FORWARD));
 		if(distance<0) throw new IllegalArgumentException();
 		// if distance < 0 throws IllegalArgumentException
 		for(int step=0; step<distance; step++)
 		// for each block in distance:
 			if(batteryLevel[0] - getEnergyForStepForward() < 1) {
 				stopped = true;
-				Log.v("ReliableRobot", "Set stopped to true: 305");
+			//	Log.v("ReliableRobot", "Set stopped to true: 305");
 			}
 			// sensing using distanceToObstacle takes 1 energy
 			// account for this by adding 1 to the battery level 
 			// so that move only takes 6 energy and not 7
 			else if(distanceToObstacle(Robot.Direction.FORWARD) < 1) {
-				Log.v("ReliableRobot", "Direction forward: "+ getCurrentDirection());
+			//	Log.v("ReliableRobot", "Direction forward: "+ getCurrentDirection());
 				stopped = true;
-				Log.v("ReliableRobot", "Set stopped to true: 312");
+			//	Log.v("ReliableRobot", "Set stopped to true: 312");
 			}
 			else {
 				// if robot has enough energy and isn't running into a wall,
@@ -362,7 +362,7 @@ public class ReliableRobot implements Robot {
 		// if it isn't a valid position, the robot is stopped
 		if(!statePlaying.getMazeConfiguration().isValidPosition(positionToJumpTo[0], positionToJumpTo[1])) {
 			stopped = true;
-			Log.v("ReliableRobot", "Set stopped to true: 359");
+		//	Log.v("ReliableRobot", "Set stopped to true: 359");
 		}
 		// if the robot doesn't have enough energy to jump, the robot stops
 		if(batteryLevel[0]-ENERGY_FOR_JUMP<1) stopped = true;
@@ -411,7 +411,7 @@ public class ReliableRobot implements Robot {
 	@Override
 	public int distanceToObstacle(Direction direction) throws 
 		UnsupportedOperationException, Exception {
-		Log.v("ReliableRobot", "Current direction:"+statePlaying.getCurrentDirection());
+	//	Log.v("ReliableRobot", "Current direction:"+statePlaying.getCurrentDirection());
 		// ReliableSensor is always operational
 		// check that there is a sensor in the given direction
 		boolean sensorExistsOperational = checkIfSensorIsOperational(direction);
@@ -561,7 +561,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public boolean canSeeThroughTheExitIntoEternity(Direction direction) throws UnsupportedOperationException {
-		Log.v("ReliableRobot", "Inside canSeeThroughTheExit..");
+	//	Log.v("ReliableRobot", "Inside canSeeThroughTheExit..");
 		int distance;
 		try {
 			// sensor will return MAX_INT if can see to exit

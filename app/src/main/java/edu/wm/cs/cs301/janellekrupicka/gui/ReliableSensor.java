@@ -114,7 +114,7 @@ public class ReliableSensor implements DistanceSensor {
 		int xToChange = currentPosition[0];
 		int yToChange = currentPosition[1];
 		while(!floorplan.hasWall(xToChange, yToChange, currentDirection)) {
-			Log.v("ReliableSensor", "In while loop, doesn't have wall");
+		//	Log.v("ReliableSensor", "In while loop, doesn't have wall");
 			switch(currentDirection) {
 				// changing x and y depending on the direction
 				// to move to the next cell to check for a wall again
@@ -143,7 +143,7 @@ public class ReliableSensor implements DistanceSensor {
 				break;
 			}
 		}
-		Log.v("ReliableSensor", "Direction: "+currentDirection+", Distance: "+distance);
+	//	Log.v("ReliableSensor", "Direction: "+currentDirection+", Distance: "+distance);
 		return distance;
 	}
 	/**

@@ -126,10 +126,10 @@ public class Wizard implements RobotDriver {
 		int[] curPosition = robot.getCurrentPosition();
 		int[] neighPosition =  mazeUsed.getNeighborCloserToExit(curPosition[0], curPosition[1]);
 		CardinalDirection curDir = robot.getCurrentDirection();
-		Log.v("Wizard", "Current direction is "+curDir);
+	//	Log.v("Wizard", "Current direction is "+curDir);
 	//	Log.v("Wizard", "Obtained direction references");
 		if(robot.isAtExit()) {
-			Log.v("Wizard","Is at exit correctly");
+		//	Log.v("Wizard","Is at exit correctly");
 			if(!robot.canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)) {
 				if(robot.canSeeThroughTheExitIntoEternity(Robot.Direction.LEFT)) {
 					robot.rotate(Turn.LEFT);
@@ -138,7 +138,6 @@ public class Wizard implements RobotDriver {
 				else if(robot.canSeeThroughTheExitIntoEternity(Robot.Direction.RIGHT)) {
 					robot.rotate(Turn.RIGHT);
 					if(robot.hasStopped()) throw new Exception("Robot has stopped.");
-
 				}
 				else if(robot.canSeeThroughTheExitIntoEternity(Robot.Direction.BACKWARD)) {
 					System.out.println("Can See Exit Correctly");
@@ -148,14 +147,13 @@ public class Wizard implements RobotDriver {
 			}
 			if(robot.canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)) {
 				robot.move(1);
-				return false;
 			}
 		}
 		CardinalDirection neighDir = determineNeighborDirection(curPosition, neighPosition);
-		Log.v("Wizard", "Neighbor direction is "+neighDir);
+	//	Log.v("Wizard", "Neighbor direction is "+neighDir);
 		if(curDir==neighDir) {
 			robot.move(1);
-			Log.v("Wizard", "Just moved 1");
+		//	Log.v("Wizard", "Just moved 1");
 		}
 	//	Log.v("Wizard", "Just moved 1");
 		if(robot.hasStopped()) throw new Exception("Robot has stopped.");
@@ -163,14 +161,14 @@ public class Wizard implements RobotDriver {
 		// 		robot move 1
 		
 		else if(curDir!=neighDir) {
-			Log.v("Wizard", "Robot didn't stop, about to rotate");
+		//	Log.v("Wizard", "Robot didn't stop, about to rotate");
 			if((curDir==CardinalDirection.West && neighDir==CardinalDirection.North)
 				|| (curDir==CardinalDirection.North && neighDir==CardinalDirection.East)
 				|| (curDir==CardinalDirection.East && neighDir==CardinalDirection.South)
 				|| (curDir==CardinalDirection.South && neighDir==CardinalDirection.West)) {
 				
 				robot.rotate(Turn.LEFT);
-				Log.v("Wizard", "Robot rotated left");
+			//	Log.v("Wizard", "Robot rotated left");
 			}
 			else if((curDir==CardinalDirection.West && neighDir==CardinalDirection.South)
 				|| (curDir==CardinalDirection.South && neighDir==CardinalDirection.East)
@@ -178,7 +176,7 @@ public class Wizard implements RobotDriver {
 				|| (curDir==CardinalDirection.North && neighDir==CardinalDirection.West)) {
 					
 				robot.rotate(Turn.RIGHT);
-				Log.v("Wizard", "Robot rotated right");
+			//	Log.v("Wizard", "Robot rotated right");
 			}
 			else if((curDir==CardinalDirection.West && neighDir==CardinalDirection.East)
 					|| (curDir==CardinalDirection.South && neighDir==CardinalDirection.North)
@@ -186,43 +184,16 @@ public class Wizard implements RobotDriver {
 					|| (curDir==CardinalDirection.North && neighDir==CardinalDirection.South)) {
 						
 					robot.rotate(Turn.AROUND);
-				Log.v("Wizard", "Robot rotated around");
+			//	Log.v("Wizard", "Robot rotated around");
 				}
 			if(robot.hasStopped()) throw new Exception("Robot has stopped.");
 			
 			robot.move(1);
-			Log.v("Wizard", "Robot moved one, battery is "+robot.getBatteryLevel());
+		//	Log.v("Wizard", "Robot moved one, battery is "+robot.getBatteryLevel());
 		//	if(robot.hasStopped()) throw new Exception("Robot has stopped.");
 		}
-
-		
-	//	assert isAdjacent(curPosition, robot.getCurrentPosition());
-	//	return isAdjacent(curPosition, robot.getCurrentPosition());
 		return true;
-		// else if currentDirection != directionToNeighbor:
-		//		if (cur=west and neigh=north) or (cur=north and neigh=east)
-		//			or (cur=east and neigh=south) or (cur=south and neigh=west):
-		//				turn robot left
-		//		if (cur=west and neigh=south) or (cur=south and neigh=east)
-		//			or (cur=east and neigh=north) or (cur=north and neigh=west):
-		//				turn robot right
-		// 		if (cur=north and neigh=south) or (cur=south and neigh=north)
-		//			of (cur=east and neigh=west) or (cur=west and neigh=east):
-		//				turn robot around
-		//		move robot 1
-		//		path length + 1
-		
-		// turn depending on relative direction and then move and 
-		// if is at exit: 
-		//		if not can see through exit to eternity(currentdirection):
-		//			if can see through exit to eternity(left):
-		//				turn left
-		//			if can see through exit to eternity(right):
-		//				turn right
-		
-		// if assert(is adjacent)
-		// if robot.HasStopped:
-		//		throw Exception
+
 	}
 	
 	private boolean isAdjacent(int[] previousPosition, int[] currentPosition) {

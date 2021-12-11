@@ -77,7 +77,7 @@ public class AMazeActivity extends AppCompatActivity {
         Random random = new Random();
         seed = random.nextInt();
     //    seed = -1536304652;
-        Log.v("AMazeActivity", "seed is "+seed);
+    //    Log.v("AMazeActivity", "seed is "+seed);
     }
     /**
      * Method called with explore button is selected.
@@ -93,7 +93,7 @@ public class AMazeActivity extends AppCompatActivity {
     //    Toast.makeText(getBaseContext(), "Exploring maze.", LENGTH_LONG).show();
         Log.v("AMazeActivity", "Explore button selected. Exploring maze.");
         Intent intent = new Intent(this, GeneratingActivity.class);
-        Log.v("AMazeActivity", "Skill level:"+skillLevelInt);
+    //    Log.v("AMazeActivity", "Skill level:"+skillLevelInt);
         intent.putExtra("Skill level",skillLevelInt);
         intent.putExtra("Rooms", hasRooms);
         intent.putExtra("Maze gen algorithm",mazeGenAlgorithm);
@@ -125,7 +125,7 @@ public class AMazeActivity extends AppCompatActivity {
         startActivity(intent);
     }
     private void setUpPreferences() {
-        Log.v("AMazeActivity", "In setUpPreferences");
+    //    Log.v("AMazeActivity", "In setUpPreferences");
         SharedPreferences sharedPref = this.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("Seed", seed);
