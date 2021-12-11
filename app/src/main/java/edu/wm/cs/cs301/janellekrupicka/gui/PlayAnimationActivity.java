@@ -70,6 +70,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
         robotType=intent.getStringExtra("Robot type");
         skillLevel = intent.getIntExtra("Skill level", 0);
         maze=MazeSingleton.getInstance().getMaze();
+    //    maze = GeneratingActivity.mazeFinal;
     //    MazeSingleton.getInstance().setMaze(null);
         getAnimationSpeed();
     //    showMap();
@@ -80,17 +81,29 @@ public class PlayAnimationActivity extends AppCompatActivity {
         play = true;
         startAnimation();
     }
+    private boolean stopped;
     public void moveToNextActivity() {
     //    updateAnimation.join();
         Log.v("PlayAnimationActivity", "about to remove callbacks");
         aniHandler.removeCallbacks(updateAnimation);
-        Intent intent = new Intent(this, WinningActivity.class);
-        // will need for be changed so the values are no longer hard coded
+            Intent intent = new Intent(this, WinningActivity.class);
+            // will need for be changed so the values are no longer hard coded
+            intent.putExtra("Path length", robot.getOdometerReading()); // will get from controller
+            intent.putExtra("Shortest path length", shortestPath); // will get from controller
+            intent.putExtra("Energy consumption", wizard.getEnergyConsumption()); // will get from controller
+            startActivity(intent);
+            MazeSingleton.getInstance().setMaze(null);
+            finish();
+
+    }
+    private void moveToLosing() {
+        Intent intent = new Intent(this, LosingActivity.class);
         intent.putExtra("Path length", robot.getOdometerReading()); // will get from controller
         intent.putExtra("Shortest path length", shortestPath); // will get from controller
         intent.putExtra("Energy consumption", wizard.getEnergyConsumption()); // will get from controller
-        MazeSingleton.getInstance().setMaze(null);
+        intent.putExtra("Reason for stop", stopped);// true if crashed/broke, false if ran out of energy
         startActivity(intent);
+        MazeSingleton.getInstance().setMaze(null);
         finish();
     }
     private void startAnimation() {
@@ -130,16 +143,36 @@ public class PlayAnimationActivity extends AppCompatActivity {
 
         }
     }
+    private boolean win = false;
+    public void setWin(boolean yesWin) {
+        win = yesWin;
+    }
     private Runnable updateAnimation = new Runnable() {
         @Override
         public void run() {
         //    if(play==true) {
             Log.v("PlayAnimationActivity", "in run");
+            int[] curPosition = {0, 0};
             try {
                 wizard.drive1Step2Exit();
+                curPosition=robot.getCurrentPosition();
             } catch (Exception e) {
                 e.printStackTrace();
-                MazeSingleton.getInstance().setMaze(null);
+                try {
+                    if(!win) {
+                        stopped = true;
+                        MazeSingleton.getInstance().setMaze(null);
+                        moveToLosing();
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                //    if(e.toString().equals("Robot has stopped.")) {
+
+            //    }
+            //    if(e.toString().equals("Robot has stopped.")) {
+
+            //    }
                 return;
             }
         //    }
@@ -340,5 +373,10 @@ public class PlayAnimationActivity extends AppCompatActivity {
         Log.v("PlayAnimationActivity", "Distance backward: "+robot.distanceToObstacle(Robot.Direction.BACKWARD));
         Log.v("PlayAnimationActivity", "Distance left: "+robot.distanceToObstacle(Robot.Direction.LEFT));
         Log.v("PlayAnimationActivity", "Distance right: "+robot.distanceToObstacle(Robot.Direction.RIGHT));
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        aniHandler.removeCallbacks(updateAnimation);
+        return true;
     }
 }

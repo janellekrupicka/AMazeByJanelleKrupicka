@@ -40,7 +40,7 @@ public class LosingActivity extends AppCompatActivity {
     /**
      * Amount of energy consumed by robot.
      */
-    private int energyConsumed;
+    private float energyConsumed;
     /**
      * Sets up layout for activity.
      * Sets the path length, shortest path, energy consumed,
@@ -57,7 +57,7 @@ public class LosingActivity extends AppCompatActivity {
             pathLengthInt = intent.getIntExtra("Path length", 500); // 500 for testing
             shortestPath = intent.getIntExtra("Shortest path length", 500);
             crashed = intent.getBooleanExtra("Reason for stop", true);
-            energyConsumed = intent.getIntExtra("Energy consumption", 500);
+            energyConsumed = intent.getFloatExtra("Energy consumption", 500);
         }
         setText();
     }
@@ -78,5 +78,8 @@ public class LosingActivity extends AppCompatActivity {
         TextView robotEnergyConsumption = (TextView)findViewById(R.id.robotEnergyConsumption);
         robotEnergyConsumption.setText("Amount of energy consumed: "+energyConsumed);
     }
-
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return true;
+    }
 }

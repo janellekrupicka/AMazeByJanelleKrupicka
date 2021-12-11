@@ -1,5 +1,7 @@
 package edu.wm.cs.cs301.janellekrupicka.generation;
 
+import android.util.Log;
+
 import edu.wm.cs.cs301.janellekrupicka.gui.Constants;
 
 
@@ -94,6 +96,7 @@ public class MazeBuilder implements Runnable {
 			Thread.sleep(SLEEP_INTERVAL) ; // test if thread has been interrupted, i.e. notified to stop
 
 			// communicate results back to Controller
+			Log.v("MazeBuilder", "About to deliver");
 			order.updateProgress(100); // Order interface promises to communicate 100% upon delivery
 			order.deliver(new MazeContainer(width, height, floorplan, dists, root, startx, starty));
             // reset order and other fields for safe repeated operation and garbage collection

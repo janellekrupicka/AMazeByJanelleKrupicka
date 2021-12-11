@@ -41,7 +41,7 @@ import edu.wm.cs.cs301.janellekrupicka.generation.Order;
  * PlayManuallyActivity.java to go to next if Manual is selected as driver.
  * PlayAnimationActivity.java to go to next if Wizard or Wallfollower is selected as driver.
  */
-public class GeneratingActivity extends AppCompatActivity implements Order {
+public class GeneratingActivity<mazeFinal> extends AppCompatActivity implements Order {
     private int skillLevel;
     private boolean perfect;
     private Builder mazeGenAlgorithm;
@@ -152,6 +152,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
         if(str.equals("Boruvka")) mazeGenAlgorithm = Builder.Boruvka;
     }
     private void buildMazeConfig() {
+        Log.v("GeneratingActivity", "In buildMazeConfig");
         factory = new MazeFactory();
     //    seed = 13;
         percentdone = 0;
@@ -307,10 +308,13 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
         return seed;
     }
 
+    public static Maze mazeFinal;
     @Override
     public void deliver(Maze mazeConfig) {
     //    MazeSingleton.getInstance().setMaze(null);
         MazeSingleton.getInstance().setMaze(mazeConfig);
+    //    mazeFinal = mazeConfig;
+        Log.v("GeneratingActivity", "In deliver");
     }
     @Override
     public void updateProgress(int percentage) {

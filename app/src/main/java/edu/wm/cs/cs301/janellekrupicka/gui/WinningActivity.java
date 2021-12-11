@@ -84,5 +84,9 @@ public class WinningActivity extends AppCompatActivity {
         if(manual) robotEnergyConsumption.setVisibility(View.GONE);
         if(!manual) robotEnergyConsumption.setText("Amount of energy consumed: "+energyConsumed);
     }
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return true;
+    }
 
 }

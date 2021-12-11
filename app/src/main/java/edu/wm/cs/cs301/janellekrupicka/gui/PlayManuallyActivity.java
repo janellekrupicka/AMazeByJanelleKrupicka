@@ -54,6 +54,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
         skillLevel = intent.getIntExtra("Skill level", 0);
         pathLength = 0;
         maze=MazeSingleton.getInstance().getMaze();
+    //    maze = GeneratingActivity.mazeFinal;
     //    MazeSingleton.getInstance().setMaze(null);
         MazePanel mazePanel = findViewById(R.id.maze_panel);
         statePlaying.start(mazePanel);
@@ -69,6 +70,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
         intent.putExtra("Path length", pathLength); // will get from controller
         intent.putExtra("Shortest path length", shortestPath); // will get from controller
         startActivity(intent);
+        MazeSingleton.getInstance().setMaze(null);
         finish();
     }
     /**
@@ -163,6 +165,10 @@ public class PlayManuallyActivity extends AppCompatActivity {
         statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, skillLevel);
     //    Toast.makeText(getBaseContext(), "Showing visible walls", Toast.LENGTH_SHORT).show();
         Log.v("PlayManuallyActivity", "Show visible walls turned on/oof");
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return true;
     }
 
 }

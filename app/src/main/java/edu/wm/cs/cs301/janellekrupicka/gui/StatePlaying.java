@@ -83,7 +83,7 @@ public class StatePlaying extends DefaultState {
     }
 //    @Override
 //    public void setMazeConfiguration(Maze config) {
-//        mazeConfig = MazeSingleton.getInstance().getMaze();
+//        mazeConfig = MazeSingleton.DistanInstance().getMaze();
 //    }
     /**
      * Start the actual game play by showing the playing screen.
@@ -99,6 +99,7 @@ public class StatePlaying extends DefaultState {
     	// keep the reference to the panel for drawing
     	this.panel = panel;
         mazeConfig = MazeSingleton.getInstance().getMaze();
+    //    mazeConfig = GeneratingActivity.mazeFinal;
         // adjust internal state of maze model
         // visibility settings
         showMaze = false ;
@@ -239,6 +240,7 @@ public class StatePlaying extends DefaultState {
             manualActivity.moveToNextActivity();
         }
         else {
+            animationActivity.setWin(true);
             animationActivity.moveToNextActivity();
         }
     }
